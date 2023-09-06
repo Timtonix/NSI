@@ -4,11 +4,14 @@ import time
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, rayon_cercle):
+    def __init__(self, coté_carré, rayon_cercle, x, y):
         super().__init__()
         self.speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
+
+        self.x = x
+        self.y = y
 
     def carré(self, x, y):
         self.seth(0)
@@ -105,44 +108,13 @@ class Dé(Turtle):
         self.cercle(x + self.coté_carré / 6 * 4, y + self.coté_carré / 4 * 3 - self.rayon_cercle)
 
 
-def croquis():
-    self.carré(-350, 0)
-    down()
-    i = 0
-    while i != 3:
-        i += 1
-        seth(0)
-        forward(self.rayon_cercle*2)
-        left(90)
-        forward(self.coté_carré)
-        right(90)
-        forward(self.rayon_cercle*2)
-        right(90)
-        forward(self.coté_carré)
-
-    self.goto(-350, 0)
-    i = 0
-    while i != 3:
-        i += 1
-        seth(0)
-        left(90)
-        forward(self.rayon_cercle * 2)
-        right(90)
-        forward(self.coté_carré)
-        left(90)
-        forward(self.rayon_cercle * 2)
-        left(90)
-        forward(self.coté_carré)
-
-
-    seth(0)
-    self.cercle(-325, 0)
 
 
 
 
 if __name__ == "__main__":
     dé = Dé(300, 25)
+    dédeux = Dé(300, 300)
 
     number = random.randint(1, 6)
 
