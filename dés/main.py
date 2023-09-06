@@ -97,8 +97,20 @@ def face_cinq(x, y):
     dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 6*2) - dé.rayon_cercle)
 
 def face_six(x, y):
-    pass
+    dé.carré(x, y)
+    dé.goto(x, y)
 
+    # Milieu
+    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 2) - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 2) - dé.rayon_cercle)
+
+    # Bas
+    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 4) - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 4) - dé.rayon_cercle)
+
+    # Haut
+    dé.cercle(x + dé.coté_carré / 6 * 2, y + dé.coté_carré / 4 * 3 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 6 * 4, y + dé.coté_carré / 4 * 3 - dé.rayon_cercle)
 
 
 def croquis():
@@ -142,4 +154,5 @@ if __name__ == "__main__":
     face_un(0, 0)
     face_trois(0, -350)
     face_quatre(-350, 0)
+    face_six(-350, -350)
     time.sleep(20)
