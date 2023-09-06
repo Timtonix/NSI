@@ -11,8 +11,6 @@ class Dé():
         speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
-    
-
 
     def carré(self, x, y):
         seth(0)
@@ -36,24 +34,46 @@ class Dé():
         circle(self.rayon_cercle)
         end_fill()
     
-    def goto(x, y):
+    def goto(self, x, y):
         up()
         goto(x, y)
         down()
 
-    
-    
-dé = Dé(300, 25)
+    def dot(self, x, y, size, couleur: str):
+        up()
+        goto(x, y)
+        down()
+        dot(size, couleur)
 
-def face_un():
+    def diagonales(self, x, y):
+        self.goto(x, y)
+        down()
+        goto(x + self.coté_carré, y + self.coté_carré)
+        up()
+        goto(x, y + self.coté_carré)
+        down()
+        goto(x + self.coté_carré, y)
+
+
+def face_un(x=0, y=0):
     dé.carré(0, 0)
-    dé.cercle(dé.coté_carré // 2, (dé.coté_carré // 2) - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
+    dé.diagonales(x, y)
 
 
 def face_deux(x, y):
     dé.carré(x, y)
-    goto(x, y)
+    dé.goto(x, y)
+    dé.cercle(x + dé.coté_carré // 8 * 3, y + dé.coté_carré // 8 * 3 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré // 8 * 5, y + dé.coté_carré // 8 * 5 - dé.rayon_cercle)
+
+
+def face_trois(x, y):
+    dé.carré(x, y)
+    dé.goto(x, y)
+    dé.cercle(x + dé.coté_carré // 8 * 3, y + dé.coté_carré // 8 * 3 - dé.rayon_cercle)
     dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré // 8 * 5, y + dé.coté_carré // 8 * 5 - dé.rayon_cercle)
 
 
 def croquis():
@@ -71,6 +91,19 @@ def croquis():
         right(90)
         forward(dé.coté_carré)
 
+    dé.goto(-350, 0)
+    i = 0
+    while i != 3:
+        i += 1
+        seth(0)
+        left(90)
+        forward(dé.rayon_cercle * 2)
+        right(90)
+        forward(dé.coté_carré)
+        left(90)
+        forward(dé.rayon_cercle * 2)
+        left(90)
+        forward(dé.coté_carré)
 
 
     seth(0)
@@ -80,7 +113,6 @@ def croquis():
 
 
 if __name__ == "__main__":
-    face_un()
-    croquis()
-    face_deux(0, -350)
-    time.sleep(10)
+    dé = Dé(300, 25)
+    face_un(0, 0)
+    time.sleep(20)
