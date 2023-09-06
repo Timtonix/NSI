@@ -1,59 +1,52 @@
-from turtle import *
+from turtle import Turtle
 import random
 import time
-
-
-
 
 
 class Dé(Turtle):
     def __init__(self, coté_carré, rayon_cercle):
         super().__init__()
-        speed(0)
+        self.speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
 
     def carré(self, x, y):
-        seth(0)
-        up()
-        goto(x, y)
-        down()
-        
+        self.seth(0)
+        self.aller(x, y)
+
         i = 0
         while i != 4:
             i += 1
-            forward(self.coté_carré)
-            left(90)
+            self.forward(self.coté_carré)
+            self.left(90)
 
     def cercle(self, x: float, y: float):
-        seth(0)
-        up()
-        goto(x, y)
-        down()
-        fillcolor("purple")
-        begin_fill()
-        circle(self.rayon_cercle)
-        end_fill()
+        self.seth(0)
+        self.aller(x, y)
+        self.fillcolor("purple")
+        self.begin_fill()
+        self.circle(self.rayon_cercle)
+        self.end_fill()
     
-    def goto(self, x, y):
-        up()
-        goto(x, y)
-        down()
+    def aller(self, x, y):
+        self.up()
+        self.goto(x, y)
+        self.down()
 
-    def dot(self, x, y, size, couleur: str):
-        up()
-        goto(x, y)
-        down()
-        dot(size, couleur)
+    def point(self, x, y, size, couleur: str):
+        self.up()
+        self.aller(x, y)
+        self.down()
+        self.dot(size, couleur)
 
     def diagonales(self, x, y):
         self.goto(x, y)
-        down()
-        goto(x + self.coté_carré, y + self.coté_carré)
-        up()
-        goto(x, y + self.coté_carré)
-        down()
-        goto(x + self.coté_carré, y)
+        self.down()
+        self.goto(x + self.coté_carré, y + self.coté_carré)
+        self.up()
+        self.goto(x, y + self.coté_carré)
+        self.down()
+        self.goto(x + self.coté_carré, y)
 
     """
     Différentes faces du dé
