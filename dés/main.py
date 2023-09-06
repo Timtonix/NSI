@@ -54,9 +54,9 @@ class Dé(Turtle):
     Différentes faces du dé
     """
 
-    def face_un(self, x=0, y=0):
-        self.carré(x, y)
-        self.cercle(x + self.coté_carré // 2, y + (self.coté_carré // 2) - self.rayon_cercle)
+    def face_un(self):
+        self.carré(self.x, self.y)
+        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
 
     def face_deux(self):
         self.carré(x, y)
