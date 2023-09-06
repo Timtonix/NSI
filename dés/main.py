@@ -64,16 +64,20 @@ def face_un(x=0, y=0):
 def face_deux(x, y):
     dé.carré(x, y)
     dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré // 8 * 3, y + dé.coté_carré // 8 * 3 - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré // 8 * 5, y + dé.coté_carré // 8 * 5 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 8 * 3, y + dé.coté_carré / 8 * 3 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 8 * 5, y + dé.coté_carré / 8 * 5 - dé.rayon_cercle)
 
 
 def face_trois(x, y):
     dé.carré(x, y)
     dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré // 8 * 3, y + dé.coté_carré // 8 * 3 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 9 * 3, y + dé.coté_carré / 9 * 3 - dé.rayon_cercle)
     dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré // 8 * 5, y + dé.coté_carré // 8 * 5 - dé.rayon_cercle)
+    dé.cercle(x + dé.coté_carré / 9 * 6, y + dé.coté_carré / 9 * 6 - dé.rayon_cercle)
+    print(f"premier cercle {x + dé.coté_carré // 8 * 3} / {y + dé.coté_carré // 8 * 3 - dé.rayon_cercle}")
+    print(f"deuxième cercle {x + dé.coté_carré // 8 * 5} / {y + dé.coté_carré // 8 * 5 - dé.rayon_cercle}")
+
+    dé.diagonales(x, y)
 
 
 def croquis():
@@ -115,4 +119,5 @@ def croquis():
 if __name__ == "__main__":
     dé = Dé(300, 25)
     face_un(0, 0)
+    face_trois(0, -350)
     time.sleep(20)
