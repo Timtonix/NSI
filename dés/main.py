@@ -6,8 +6,9 @@ import time
 
 
 
-class Dé():
+class Dé(Turtle):
     def __init__(self, coté_carré, rayon_cercle):
+        super().__init__()
         speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
@@ -54,105 +55,115 @@ class Dé():
         down()
         goto(x + self.coté_carré, y)
 
+    """
+    Différentes faces du dé
+    """
 
-def face_un(x=0, y=0):
-    dé.carré(0, 0)
-    dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
-    dé.diagonales(x, y)
+    def face_un(self, x=0, y=0):
+        self.carré(x, y)
+        self.cercle(x + self.coté_carré // 2, y + (self.coté_carré // 2) - self.rayon_cercle)
 
+    def face_deux(self, x, y):
+        self.carré(x, y)
+        self.goto(x, y)
+        self.cercle(x + self.coté_carré / 8 * 3, y + self.coté_carré / 8 * 3 - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 8 * 5, y + self.coté_carré / 8 * 5 - self.rayon_cercle)
 
-def face_deux(x, y):
-    dé.carré(x, y)
-    dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré / 8 * 3, y + dé.coté_carré / 8 * 3 - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 8 * 5, y + dé.coté_carré / 8 * 5 - dé.rayon_cercle)
+    def face_trois(self, x, y):
+        self.carré(x, y)
+        self.goto(x, y)
+        self.cercle(x + self.coté_carré / 9 * 3, y + self.coté_carré / 9 * 3 - self.rayon_cercle)
+        self.cercle(x + self.coté_carré // 2, y + (self.coté_carré // 2) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 9 * 6, y + self.coté_carré / 9 * 6 - self.rayon_cercle)
+        print(f"premier cercle {x + self.coté_carré // 8 * 3} / {y + self.coté_carré // 8 * 3 - self.rayon_cercle}")
+        print(f"deuxième cercle {x + self.coté_carré // 8 * 5} / {y + self.coté_carré // 8 * 5 - self.rayon_cercle}")
 
+    def face_quatre(self, x, y):
+        self.carré(x, y)
+        self.goto(x, y)
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
-def face_trois(x, y):
-    dé.carré(x, y)
-    dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré / 9 * 3, y + dé.coté_carré / 9 * 3 - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 9 * 6, y + dé.coté_carré / 9 * 6 - dé.rayon_cercle)
-    print(f"premier cercle {x + dé.coté_carré // 8 * 3} / {y + dé.coté_carré // 8 * 3 - dé.rayon_cercle}")
-    print(f"deuxième cercle {x + dé.coté_carré // 8 * 5} / {y + dé.coté_carré // 8 * 5 - dé.rayon_cercle}")
+    def face_cinq(self, x, y):
+        self.carré(x, y)
+        self.goto(x, y)
+        self.cercle(x + self.coté_carré // 2, y + (self.coté_carré // 2) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
-    dé.diagonales(x, y)
+    def face_six(self, x, y):
+        self.carré(x, y)
+        self.goto(x, y)
 
-def face_quatre(x, y):
-    dé.carré(x, y)
-    dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 6*2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 6*4) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 6*4) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 6*2) - dé.rayon_cercle)
+        # Milieu
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 2) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 2) - self.rayon_cercle)
 
-def face_cinq(x, y):
-    dé.carré(x, y)
-    dé.goto(x, y)
-    dé.cercle(x + dé.coté_carré // 2, y + (dé.coté_carré // 2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 6*2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 6*4) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 6*4) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 6*2) - dé.rayon_cercle)
+        # Bas
+        self.cercle(x + self.coté_carré / 6 * 2, y + (self.coté_carré / 4) - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + (self.coté_carré / 4) - self.rayon_cercle)
 
-def face_six(x, y):
-    dé.carré(x, y)
-    dé.goto(x, y)
-
-    # Milieu
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 2) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 2) - dé.rayon_cercle)
-
-    # Bas
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + (dé.coté_carré / 4) - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + (dé.coté_carré / 4) - dé.rayon_cercle)
-
-    # Haut
-    dé.cercle(x + dé.coté_carré / 6 * 2, y + dé.coté_carré / 4 * 3 - dé.rayon_cercle)
-    dé.cercle(x + dé.coté_carré / 6 * 4, y + dé.coté_carré / 4 * 3 - dé.rayon_cercle)
+        # Haut
+        self.cercle(x + self.coté_carré / 6 * 2, y + self.coté_carré / 4 * 3 - self.rayon_cercle)
+        self.cercle(x + self.coté_carré / 6 * 4, y + self.coté_carré / 4 * 3 - self.rayon_cercle)
 
 
 def croquis():
-    dé.carré(-350, 0)
+    self.carré(-350, 0)
     down()
     i = 0
     while i != 3:
         i += 1
         seth(0)
-        forward(dé.rayon_cercle*2)
+        forward(self.rayon_cercle*2)
         left(90)
-        forward(dé.coté_carré)
+        forward(self.coté_carré)
         right(90)
-        forward(dé.rayon_cercle*2)
+        forward(self.rayon_cercle*2)
         right(90)
-        forward(dé.coté_carré)
+        forward(self.coté_carré)
 
-    dé.goto(-350, 0)
+    self.goto(-350, 0)
     i = 0
     while i != 3:
         i += 1
         seth(0)
         left(90)
-        forward(dé.rayon_cercle * 2)
+        forward(self.rayon_cercle * 2)
         right(90)
-        forward(dé.coté_carré)
+        forward(self.coté_carré)
         left(90)
-        forward(dé.rayon_cercle * 2)
+        forward(self.rayon_cercle * 2)
         left(90)
-        forward(dé.coté_carré)
+        forward(self.coté_carré)
 
 
     seth(0)
-    dé.cercle(-325, 0)
+    self.cercle(-325, 0)
 
 
 
 
 if __name__ == "__main__":
     dé = Dé(300, 25)
-    face_un(0, 0)
-    face_trois(0, -350)
-    face_quatre(-350, 0)
-    face_six(-350, -350)
-    time.sleep(20)
+
+    number = random.randint(1, 6)
+
+    if number == 1:
+        dé.face_un(-150, -150)
+    if number == 2:
+        dé.face_deux(-150, -150)
+    if number == 3:
+        dé.face_trois(-150, -150)
+    if number == 4:
+        dé.face_quatre(-150, -150)
+    if number == 5:
+        dé.face_cinq(-150, -150)
+    if number == 6:
+        dé.face_six(-150, -150)
+
+    time.sleep(10)
