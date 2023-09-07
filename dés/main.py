@@ -9,13 +9,11 @@ class Dé(Turtle):
         self.speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
-        self.x = x
-        self.y = y
+        self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
-    def carré(self, x, y):
+    def carré(self):
         self.seth(0)
-        x, y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
-        self.aller(x, y)
+        self.aller(self.x, self.y)
 
         for i in range(4):
             self.forward(self.coté_carré)
@@ -49,7 +47,7 @@ class Dé(Turtle):
         self.goto(self.x + self.coté_carré, self.y)
 
     def face_vide(self):
-        self.carré(self.x, self.y)
+        self.carré()
         self.aller(self.x, self.y)
 
 
