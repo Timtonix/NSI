@@ -106,18 +106,26 @@ class Dé(Turtle):
 if __name__ == "__main__":
     nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
     taille_carré = int(input("La taille du dé [100; 400])\n>").strip())
-
-    if taille_carré < 100 or taille_carré > 400 :
-        raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
-
+    taille_par_dix = taille_carré / 10
     posx = 0
     posy = 0
 
+    position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
+                      (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
+    if taille_carré < 100 or taille_carré > 400 :
+        raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
+
+
+    itération = 0
     for i in range(nombre_dés):
-        dé = Dé(taille_carré, posx, posy)
+        if i < 5:
+            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+        else:
+            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
         dé.face_vide()
-        dé.calcule(6)
-        posx += 275
+        dé.calcule(random.randint(1, 6))
+
+
 
 
     done()
