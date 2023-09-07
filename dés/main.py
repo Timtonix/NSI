@@ -4,11 +4,11 @@ import time
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, rayon_cercle, x, y):
-        super().__init__()
+    def __init__(self, coté_carré, x, y):
+        super().__init__(visible=False)
         self.speed(0)
         self.coté_carré = coté_carré
-        self.rayon_cercle = rayon_cercle
+        self.rayon_cercle = coté_carré / 10
         self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
     def carré(self):
@@ -105,10 +105,16 @@ class Dé(Turtle):
 
 if __name__ == "__main__":
     nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
+    taille_carré = int(input("La taille du dé [100; 400])\n>").strip())
+
+    if taille_carré < 100 or taille_carré > 400 :
+        raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
+
     posx = 0
     posy = 0
+
     for i in range(nombre_dés):
-        dé = Dé(250, 25, posx, posy)
+        dé = Dé(taille_carré, posx, posy)
         dé.face_vide()
         dé.calcule(6)
         posx += 275
