@@ -9,7 +9,6 @@ class Dé(Turtle):
         self.speed(0)
         self.coté_carré = coté_carré
         self.rayon_cercle = rayon_cercle
-
         self.x = x
         self.y = y
 
@@ -50,22 +49,23 @@ class Dé(Turtle):
         self.down()
         self.goto(self.x + self.coté_carré, self.y)
 
+    def face_vide(self):
+        self.carré(self.x, self.y)
+
+
     """
     Différentes faces du dé
     """
-
     def face_un(self):
         self.carré(self.x, self.y)
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
 
     def face_deux(self):
-        self.carré(self.x, self.y)
         self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré / 8 * 3, self.y + self.coté_carré / 8 * 3 - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 8 * 5, self.y + self.coté_carré / 8 * 5 - self.rayon_cercle)
 
     def face_trois(self):
-        self.carré(self.x, self.y)
         self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
@@ -74,7 +74,6 @@ class Dé(Turtle):
         print(f"deuxième cercle {self.x + self.coté_carré // 8 * 5} / {self.y + self.coté_carré // 8 * 5 - self.rayon_cercle}")
 
     def face_quatre(self):
-        self.carré(self.x, self.y)
         self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
@@ -82,7 +81,6 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
     def face_cinq(self):
-        self.carré(self.x, self.y)
         self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
@@ -91,7 +89,6 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
     def face_six(self):
-        self.carré(self.x, self.y)
         self.aller(self.x, self.y)
 
         # Milieu
@@ -115,7 +112,8 @@ if __name__ == "__main__":
     dédeux = Dé(300, 25, 150, -150)
 
     number = random.randint(1, 6)
-
+    dé.face_vide()
+    dédeux.face_vide()
     if number == 1:
         dé.face_un()
         dédeux.face_un()
