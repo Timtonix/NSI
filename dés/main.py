@@ -51,6 +51,8 @@ class Dé(Turtle):
 
     def face_vide(self):
         self.carré(self.x, self.y)
+        self.aller(self.x, self.y)
+
 
 
     """
@@ -61,7 +63,6 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
 
     def face_deux(self):
-        self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré / 8 * 3, self.y + self.coté_carré / 8 * 3 - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 8 * 5, self.y + self.coté_carré / 8 * 5 - self.rayon_cercle)
 
@@ -74,14 +75,12 @@ class Dé(Turtle):
         print(f"deuxième cercle {self.x + self.coté_carré // 8 * 5} / {self.y + self.coté_carré // 8 * 5 - self.rayon_cercle}")
 
     def face_quatre(self):
-        self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
     def face_cinq(self):
-        self.aller(self.x, self.y)
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
@@ -89,8 +88,6 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
 
     def face_six(self):
-        self.aller(self.x, self.y)
-
         # Milieu
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 2) - self.rayon_cercle)
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 2) - self.rayon_cercle)
