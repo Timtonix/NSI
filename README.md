@@ -1,11 +1,11 @@
 # NSI Python _par Timtonix_
-Je refait ton README mais je fait pas ta description, faut pas fummer non plus
+[Description]
 
-# Liste de tout 
+# Liste de tout les Projets
 ## Projet N°1 - [Générateur de Dès](/tree/main/dés)
 
 Un script qui génère aléatoirement un dès
 
 
-# D'"autres projets NSI-Phyton
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Funasitien&repo=nsi-python&show_owner=true)](https://github.com/Funasitien/nsi-python)
+# D'autres projets NSI-Phyton
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Funasitien&repo=nsi-python&show_owner=true&theme=transparent)](https://github.com/Funasitien/nsi-python)
