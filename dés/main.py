@@ -63,16 +63,12 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
 
     def face_deux(self):
-        self.cercle(self.x + self.coté_carré / 8 * 3, self.y + self.coté_carré / 8 * 3 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 8 * 5, self.y + self.coté_carré / 8 * 5 - self.rayon_cercle)
+        self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
+        self.cercle(self.x + self.coté_carré / 9 * 6, self.y + self.coté_carré / 9 * 6 - self.rayon_cercle)
 
     def face_trois(self):
-        self.aller(self.x, self.y)
-        self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
+        self.face_deux()
         self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 9 * 6, self.y + self.coté_carré / 9 * 6 - self.rayon_cercle)
-        print(f"premier cercle {self.x + self.coté_carré // 8 * 3} / {self.y + self.coté_carré // 8 * 3 - self.rayon_cercle}")
-        print(f"deuxième cercle {self.x + self.coté_carré // 8 * 5} / {self.y + self.coté_carré // 8 * 5 - self.rayon_cercle}")
 
     def face_quatre(self):
         self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
@@ -101,16 +97,15 @@ class Dé(Turtle):
         self.cercle(self.x + self.coté_carré / 6 * 4, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
 
 
-
-
-
 if __name__ == "__main__":
     dé = Dé(300, 25, -150, -150)
     dédeux = Dé(300, 25, 150, -150)
 
     number = random.randint(1, 6)
     dé.face_vide()
-    dédeux.face_vide()
+    dé.face_deux()
+    dédeux.face_trois()
+    """dédeux.face_vide()
     if number == 1:
         dé.face_un()
         dédeux.face_un()
@@ -131,6 +126,6 @@ if __name__ == "__main__":
         dédeux.face_cinq()
     if number == 6:
         dé.face_six()
-        dédeux.face_six()
+        dédeux.face_six()"""
 
     time.sleep(10)
