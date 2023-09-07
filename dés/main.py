@@ -1,4 +1,4 @@
-from turtle import Turtle, done
+from turtle import Turtle, done, update, tracer, Screen
 import random
 import time
 
@@ -6,7 +6,9 @@ import time
 class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
-        self.speed(0)
+        Screen()
+        tracer(0)
+
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
         self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
@@ -125,7 +127,7 @@ if __name__ == "__main__":
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
 
-
+    update()
 
 
     done()
