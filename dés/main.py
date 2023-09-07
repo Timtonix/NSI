@@ -1,47 +1,49 @@
-from turtle import Turtle
+from turtle import Turtle, done
 import random
 import time
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, rayon_cercle, x, y):
-        super().__init__()
+    def __init__(self, coté_carré, x, y):
+        super().__init__(visible=False)
         self.speed(0)
         self.coté_carré = coté_carré
-        self.rayon_cercle = rayon_cercle
-        self.x = x
-        self.y = y
+        self.rayon_cercle = coté_carré / 10
+        self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
-    def carré(self, x, y):
+    def carré(self):
         self.seth(0)
-        self.aller(x, y)
+        self.aller(self.x, self.y)
 
-        i = 0
-        while i != 4:
-            i += 1
+        for i in range(4):
             self.forward(self.coté_carré)
             self.left(90)
 
     def cercle(self, x: float, y: float):
+        # Dessiner un cercle, son centre se trouve sur les coordonnées données
         self.seth(0)
-        self.aller(x, y)
+        self.aller(x, y - self.rayon_cercle)
         self.fillcolor("purple")
         self.begin_fill()
         self.circle(self.rayon_cercle)
         self.end_fill()
     
     def aller(self, x, y):
+        # Aller à un point en levant le stylo
         self.up()
         self.goto(x, y)
         self.down()
 
     def point(self, size, couleur: str):
+        # Dessiner un point à partir de son centre
         self.up()
         self.aller(self.x, self.y)
         self.down()
         self.dot(size, couleur)
 
     def diagonales(self):
+        # On dessine les diagonales du carré pour vérifier si le point est bien au centre
+        # Fonction inutile car non mis à jour avec les nouvelles fonctions de calcule
         self.aller(self.x, self.y)
         self.down()
         self.goto(self.x + self.coté_carré, self.y + self.coté_carré)
@@ -50,87 +52,80 @@ class Dé(Turtle):
         self.goto(self.x + self.coté_carré, self.y)
 
     def face_vide(self):
-        self.carré(self.x, self.y)
+        # On dessine la face sans les points
+        self.carré()
         self.aller(self.x, self.y)
-
 
 
     """
     Différentes faces du dé
     """
-    def face_un(self):
-        self.carré(self.x, self.y)
-        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-
-    def face_deux(self):
-        self.cercle(self.x + self.coté_carré / 8 * 3, self.y + self.coté_carré / 8 * 3 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 8 * 5, self.y + self.coté_carré / 8 * 5 - self.rayon_cercle)
-
-    def face_trois(self):
-        self.aller(self.x, self.y)
-        self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 9 * 6, self.y + self.coté_carré / 9 * 6 - self.rayon_cercle)
-        print(f"premier cercle {self.x + self.coté_carré // 8 * 3} / {self.y + self.coté_carré // 8 * 3 - self.rayon_cercle}")
-        print(f"deuxième cercle {self.x + self.coté_carré // 8 * 5} / {self.y + self.coté_carré // 8 * 5 - self.rayon_cercle}")
-
-    def face_quatre(self):
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
-
-    def face_cinq(self):
-        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 6 * 4) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 6 * 2) - self.rayon_cercle)
-
-    def face_six(self):
-        # Milieu
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 2) - self.rayon_cercle)
-
-        # Bas
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 4) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 4) - self.rayon_cercle)
-
-        # Haut
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
+    def point_milieu(self, plusieurs: bool= False):
+        if plusieurs:
+            # Les deux points du six
+            self.cercle(self.x + self.coté_carré / 4, self.y + (self.coté_carré // 2))
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + (self.coté_carré // 2))
+        else:
+            # Le point central classique
+            self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) )
 
 
+    def points_cotés(self, invert: bool= False):
+        # Si on a invert, on fait l'inverse par rapport aux pojnts pour un deux, ainsi on peut former un 4
+        if invert:
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 )
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 * 3 )
+        else:
+            # points pour le 2 classique
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 )
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 * 3 )
+
+
+    def calcule(self, nombre_points: int):
+        # On vérifie que le nombre donné est paire
+        if nombre_points % 2 == 0 :
+            self.points_cotés()
+        else:
+            self.point_milieu()
+
+        # Ensuite si il est plus grand que deux on met les 2 points sur les coté
+        if nombre_points > 2:
+            self.points_cotés()
+
+        # Si il est plus grand que trois, on met les 2 autres points sur les cotés
+        if nombre_points > 3:
+            self.points_cotés(True)
+
+        # eEt enfin si c'est un six, on met les deux points centraux à gauche et à droite
+        if nombre_points == 6:
+            # On spécifie que l'on veut plusieurs points, pas comme le simple point du milieu pour le 1, 3 et 5
+            self.point_milieu(plusieurs=True)
 
 
 
 if __name__ == "__main__":
-    dé = Dé(300, 25, -150, -150)
-    dédeux = Dé(300, 25, 150, -150)
+    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
+    taille_carré = int(input("La taille du dé [100; 400])\n>").strip())
+    taille_par_dix = taille_carré / 10
+    posx = 0
+    posy = 0
 
-    number = random.randint(1, 6)
-    dé.face_vide()
-    dédeux.face_vide()
-    if number == 1:
-        dé.face_un()
-        dédeux.face_un()
-    if number == 2:
-        dé.face_deux()
-        dédeux.face_deux()
+    position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
+                      (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
+    if taille_carré < 100 or taille_carré > 400 :
+        raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
 
-    if number == 3:
-        dé.face_trois()
-        dédeux.face_trois()
 
-    if number == 4:
-        dé.face_quatre()
-        dédeux.face_quatre()
+    itération = 0
+    for i in range(nombre_dés):
+        if i < 5:
+            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+        else:
+            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+        dé.face_vide()
+        dé.calcule(random.randint(1, 6))
 
-    if number == 5:
-        dé.face_cinq()
-        dédeux.face_cinq()
-    if number == 6:
-        dé.face_six()
-        dédeux.face_six()
 
-    time.sleep(10)
+
+
+    done()
