@@ -20,25 +20,30 @@ class Dé(Turtle):
             self.left(90)
 
     def cercle(self, x: float, y: float):
+        # Dessiner un cercle, son centre se trouve sur les coordonnées données
         self.seth(0)
-        self.aller(x, y)
+        self.aller(x, y - self.rayon_cercle)
         self.fillcolor("purple")
         self.begin_fill()
         self.circle(self.rayon_cercle)
         self.end_fill()
     
     def aller(self, x, y):
+        # Aller à un point en levant le stylo
         self.up()
         self.goto(x, y)
         self.down()
 
     def point(self, size, couleur: str):
+        # Dessiner un point à partir de son centre
         self.up()
         self.aller(self.x, self.y)
         self.down()
         self.dot(size, couleur)
 
     def diagonales(self):
+        # On dessine les diagonales du carré pour vérifier si le point est bien au centre
+        # Fonction inutile car non mis à jour avec les nouvelles fonctions de calcule
         self.aller(self.x, self.y)
         self.down()
         self.goto(self.x + self.coté_carré, self.y + self.coté_carré)
@@ -47,6 +52,7 @@ class Dé(Turtle):
         self.goto(self.x + self.coté_carré, self.y)
 
     def face_vide(self):
+        # On dessine la face sans les points
         self.carré()
         self.aller(self.x, self.y)
 
@@ -56,35 +62,44 @@ class Dé(Turtle):
     """
     def point_milieu(self, plusieurs: bool= False):
         if plusieurs:
-            self.cercle(self.x + self.coté_carré / 4, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + (self.coté_carré // 2) - self.rayon_cercle)
+            # Les deux points du six
+            self.cercle(self.x + self.coté_carré / 4, self.y + (self.coté_carré // 2))
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + (self.coté_carré // 2))
         else:
-            self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
+            # Le point central classique
+            self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) )
 
 
     def points_cotés(self, invert: bool= False):
+        # Si on a invert, on fait l'inverse par rapport aux pojnts pour un deux, ainsi on peut former un 4
         if invert:
-            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 - self.rayon_cercle)
-            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 )
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 * 3 )
         else:
-            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 - self.rayon_cercle)
-            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
+            # points pour le 2 classique
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 )
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 * 3 )
 
 
     def calcule(self, nombre_points: int):
+        # On vérifie que le nombre donné est paire
         if nombre_points % 2 == 0 :
             self.points_cotés()
         else:
             self.point_milieu()
 
+        # Ensuite si il est plus grand que deux on met les 2 points sur les coté
         if nombre_points > 2:
             self.points_cotés()
 
+        # Si il est plus grand que trois, on met les 2 autres points sur les cotés
         if nombre_points > 3:
             self.points_cotés(True)
 
+        # eEt enfin si c'est un six, on met les deux points centraux à gauche et à droite
         if nombre_points == 6:
-            self.point_milieu(True)
+            # On spécifie que l'on veut plusieurs points, pas comme le simple point du milieu pour le 1, 3 et 5
+            self.point_milieu(plusieurs=True)
 
 
 
