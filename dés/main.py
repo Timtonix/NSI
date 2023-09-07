@@ -14,11 +14,10 @@ class Dé(Turtle):
 
     def carré(self, x, y):
         self.seth(0)
+        x, y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
         self.aller(x, y)
 
-        i = 0
-        while i != 4:
-            i += 1
+        for i in range(4):
             self.forward(self.coté_carré)
             self.left(90)
 
@@ -53,71 +52,53 @@ class Dé(Turtle):
         self.carré(self.x, self.y)
         self.aller(self.x, self.y)
 
-    def cercle_calcul(self, d):
-        x = self.x + self.coté_carré / d
-        y = self.y + self.coté_carré / d - self.coté_carré
 
     """
     Différentes faces du dé
     """
-    def face_un(self):
-        self.carré(self.x, self.y)
-        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-
-    def face_deux(self):
-        self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 9 * 6, self.y + self.coté_carré / 9 * 6 - self.rayon_cercle)
-
-    def face_trois(self):
-        self.face_deux()
-        self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
-
-    def face_quatre(self):
-        self.face_deux()
-        self.cercle(self.x + self.coté_carré / 9 * 3, self.y + self.coté_carré / 9 * 6 - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 9 * 6, self.y + self.coté_carré / 9 * 3 - self.rayon_cercle)
+    def point_milieu(self, plusieurs: bool= False):
+        if plusieurs:
+            self.cercle(self.x + self.coté_carré / 4, self.y + (self.coté_carré // 2) - self.rayon_cercle)
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + (self.coté_carré // 2) - self.rayon_cercle)
+        else:
+            self.cercle(self.x + self.coté_carré // 2, self.y + (self.coté_carré // 2) - self.rayon_cercle)
 
 
-    def face_cinq(self):
-        self.face_quatre()
-        self.face_un()
+    def points_cotés(self, invert: bool= False):
+        if invert:
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 - self.rayon_cercle)
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
+        else:
+            self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 - self.rayon_cercle)
+            self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 * 3 - self.rayon_cercle)
 
-    def face_six(self):
-        # Milieu
-        self.cercle(self.x + self.coté_carré / 6 * 2, self.y + (self.coté_carré / 2) - self.rayon_cercle)
-        self.cercle(self.x + self.coté_carré / 6 * 4, self.y + (self.coté_carré / 2) - self.rayon_cercle)
-        self.face_quatre()
+
+    def calcule(self, nombre_points: int):
+        if nombre_points % 2 == 0 :
+            self.points_cotés()
+        else:
+            self.point_milieu()
+
+        if nombre_points > 2:
+            self.points_cotés()
+
+        if nombre_points > 3:
+            self.points_cotés(True)
+
+        if nombre_points == 6:
+            self.point_milieu(True)
 
 
 
 if __name__ == "__main__":
-    dé = Dé(250, 25, -150, -150)
-    dédeux = Dé(250, 25, 150, -150)
+    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
+    posx = 0
+    posy = 0
+    for i in range(nombre_dés):
+        dé = Dé(250, 25, posx, posy)
+        dé.face_vide()
+        dé.calcule(6)
+        posx += 275
 
-    number = random.randint(1, 6)
-    dé.face_vide()
-    dé.face_deux()
-    dédeux.face_six()
-    """dédeux.face_vide()
-    if number == 1:
-        dé.face_un()
-        dédeux.face_un()
-    if number == 2:
-        dé.face_deux()
-        dédeux.face_deux()
 
-    if number == 3:
-        dé.face_trois()
-        dédeux.face_trois()
-
-    if number == 4:
-        dé.face_quatre()
-        dédeux.face_quatre()
-
-    if number == 5:
-        dé.face_cinq()
-        dédeux.face_cinq()
-    if number == 6:
-        dé.face_six()
-        dédeux.face_six()"""
     done()
