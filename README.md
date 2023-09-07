@@ -8,4 +8,4 @@ Un script qui génère aléatoirement un dès
 
 
 # D'"autres projets NSI-Phyton
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Funasitien&repo=nsi-python&show_owner=true)](https://github.com/Timtonix/NSI)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Funasitien&repo=nsi-python&show_owner=true)](https://github.com/Funasitien/nsi-python)
