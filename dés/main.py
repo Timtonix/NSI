@@ -16,7 +16,7 @@ class Dé(Turtle):
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
 
-        # X et Y du milieu du Dé, à partir des positions données pour initialiser le dé
+        # X et Y, position du sommet gauche du bas du carré, ce qui permet d'avoir un carré centré
         self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
     def carré(self):
@@ -115,17 +115,27 @@ class Dé(Turtle):
 
         premiere_pos = (self.coté_carré // 2, self.coté_carré // 2)
         pos_colonne = []
-        for point in nombre_colonne:
-            pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + ((self.coté_carré // 10) // 2) * point))
+        for point in range(nombre_colonne):
+            pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + (self.coté_carré + (self.coté_carré // 10) // 2) * point))
 
-        for pos in pos_colonne[0]:
+        for pos in pos_colonne:
+            print(pos)
             x, y = pos
+            x, y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
+            print(f"x {x}, y {y}")
             self.aller(x, y)
-            self.carré()
+            for _ in range(4):
+                seth(0)
+                forward(100)
+                left(90)
+
+
 
 
 if __name__ == "__main__":
-    nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
+    dé = Dé(100, 0, 0)
+    dé.combien_de_dés_max()
+    """nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
     taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
     taille_par_dix = taille_carré / 10
     posx = 0
@@ -144,7 +154,7 @@ if __name__ == "__main__":
         else:
             dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
         dé.face_vide()
-        dé.calcule(random.randint(1, 6))
+        dé.calcule(random.randint(1, 6))"""
 
     update()
 
