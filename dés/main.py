@@ -8,11 +8,15 @@ class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
         screensize(1920, 1080)
+
+        # On fait en sorte que le traçage soit instantané
         Screen()
         tracer(0)
 
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
+
+        # X et Y du milieu du Dé, à partir des positions données pour initialiser le dé
         self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
     def carré(self):
@@ -105,6 +109,19 @@ class Dé(Turtle):
             # On spécifie que l'on veut plusieurs points, pas comme le simple point du milieu pour le 1, 3 et 5
             self.point_milieu(plusieurs=True)
 
+    def combien_de_dés_max(self):
+        nombre_colonne = window_height() // (self.coté_carré + (self.coté_carré // 10) // 2)
+        nombre_ligne = window_width() // (self.coté_carré + (self.coté_carré // 10) // 2)
+
+        premiere_pos = (self.coté_carré // 2, self.coté_carré // 2)
+        pos_colonne = []
+        for point in nombre_colonne:
+            pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + ((self.coté_carré // 10) // 2) * point))
+
+        for pos in pos_colonne[0]:
+            x, y = pos
+            self.aller(x, y)
+            self.carré()
 
 
 if __name__ == "__main__":
