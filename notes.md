@@ -15,3 +15,6 @@
 - On divise donc la taille de l'écran par la taille du dé plus sa bordure (100 + 5)
 - On divise la taille de l'écran par 2 pour connaitre les points positifs et les points négatis
 > Ex: 1080/2 -> [540; -540], on voit que le bord haut à gauche de l'écran est 540
+
+- Ensuite on génère tous les points possible pour une ligne et pour une colone.
+>
