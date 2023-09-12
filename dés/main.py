@@ -1,4 +1,5 @@
 from turtle import Turtle, done, update, tracer, Screen
+from turtle import *
 import random
 import time
 
@@ -6,6 +7,7 @@ import time
 class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
+        screensize(1920, 1080)
         Screen()
         tracer(0)
 
@@ -106,8 +108,8 @@ class Dé(Turtle):
 
 
 if __name__ == "__main__":
-    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
-    taille_carré = int(input("La taille du dé [100; 350])\n>").strip())
+    nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
+    taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
     taille_par_dix = taille_carré / 10
     posx = 0
     posy = 0
