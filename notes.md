@@ -1,7 +1,7 @@
 # Notes pour le projet de dé
 
 ## Todo
-- [ ] Afficher plusieurs dés en fonction de l'écran
+- [x] Afficher plusieurs dés en fonction de l'écran
 - [ ] Bouton pour relancer les dés
 - [ ] Faire une toute petite animation
 - [ ] Modifier la forme des dés

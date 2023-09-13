@@ -170,28 +170,38 @@ def dessiner_dé(coté_carré, pos_list):
         dé = Dé(coté_carré, x, y, False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
+        time.sleep(0.05)
+        update()
 
 
 def choix():
-    nombre_dés = 1  # int(input("Combien de dés voulez-vous ?\n>").strip())
+    tous_les_dés = input("Voulez vous afficher un maximum de dés selon la taille de l'écran et de votre dé ? "
+                         "\n[y/n] >").strip()
+
+    if tous_les_dés == "y":
+        pass
+    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
     taille_dé = int(input("La taille du dé [100; 350])\n>").strip())
+
+    if taille_dé < 100 or taille_dé > 350 :
+        raise ValueError(f"La taille du carré {taille_dé} ne convient pas !")
 
     return (nombre_dés, taille_dé)
 
 if __name__ == "__main__":
     dessiner_un_max_de_carrés()
 
-
-    nombre_dés, taille_carré = choix()création fonction choix
+    nombre_dés, taille_carré = choix()
+    
     taille_par_dix = taille_carré / 10
     posx = 0
     posy = 0
 
     position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
                       (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
-    if taille_carré < 100 or taille_carré > 350 :
-        raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
+    
 
+    if nombre_dés == 
 
     itération = 0
     for i in range(nombre_dés):
@@ -202,7 +212,6 @@ if __name__ == "__main__":
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
 
-    update()
 
 
     done()
