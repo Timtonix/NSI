@@ -3,10 +3,10 @@ from turtle import screensize, done, update, onkeypress, bgcolor
 import random
 import time
 
+
 def dessiner_un_max_de_dés():
     coté_carré = random.randint(100, 150)
     print(coté_carré)
-    dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
     width, height = screensize()
 
     # Les coordonées du repère orthonormé
@@ -29,11 +29,11 @@ def dessiner_un_max_de_dés():
         dessiner_dé(coté_carré, pos_premiere_ligne)
 
 
-
 def colonnes_et_lignes(coté_carré, width, height):
     nombre_colonne = width // (coté_carré + (coté_carré // 10) // 2)
     nombre_ligne = height // (coté_carré + (coté_carré // 10) // 2)
-    return (nombre_colonne, nombre_ligne)
+    return nombre_colonne, nombre_ligne
+
 
 def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
     pos_début_ligne_list = []
@@ -42,6 +42,7 @@ def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
             (premiere_pos[0], premiere_pos[1] - point * (coté_carré + (coté_carré // 10) // 2)))
 
     return pos_début_ligne_list
+
 
 def pos_début_colonne(premiere_pos, coté_carré, nombre_ligne):
     pos_début_colonne_list = []
@@ -56,7 +57,7 @@ def dessiner_dé(coté_carré, pos_list):
     for pos in pos_list:
         x, y = pos
         x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
-        dé = Dé(coté_carré, x, y, False)
+        dé = Dé(coté_carré, x, y, get_screen_size(), False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
         time.sleep(0.005)
@@ -94,12 +95,11 @@ if __name__ == "__main__":
         position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
                           (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
 
-
         for i in range(nombre_dés):
             if i < 5:
-                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1], screen=get_screen_size())
             else:
-                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1], screen=get_screen_size())
             dé.face_vide()
             dé.calcule(random.randint(1, 6))
 

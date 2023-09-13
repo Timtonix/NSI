@@ -1,11 +1,11 @@
 from turtle import Turtle, tracer, Screen, screensize
-
+import pyautogui
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, x, y, calculer_pos: bool = True):
+    def __init__(self, coté_carré, x, y, screen: tuple = (1920, 1080), calculer_pos: bool = True):
         super().__init__(visible=False)
-        screensize(1900, 980)
+        screensize(screen[0], screen[1])
 
         # On fait en sorte que le traçage soit instantané
         Screen()
