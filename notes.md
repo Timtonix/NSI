@@ -21,3 +21,7 @@
 > Puis avec cette pos on calcule tout le rest
 
 - Pour calculer tous les autres pos de l'écran, on incrémente la première pos d'un carré puis on recommence à calculer les colonnes et les lignes
+
+
+### Touche pour relancer les dés
+> On peut utiliser le module turtle qui écoute les touches du clavier
