@@ -1,4 +1,4 @@
-from turtle import Turtle, tracer, Screen, screensize
+from turtle import Turtle, Screen, screensize, setup, tracer
 import pyautogui
 
 
@@ -17,6 +17,7 @@ class Dé(Turtle):
         # On fait en sorte que le traçage soit instantané
         Screen()
         tracer(0)
+        setup(width=1.0, height=1.0, startx=None, starty=None)
 
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
