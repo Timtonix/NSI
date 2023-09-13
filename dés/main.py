@@ -4,7 +4,7 @@ import time
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, x, y):
+    def __init__(self, coté_carré, x, y, calculer_pos: bool = True):
         super().__init__(visible=False)
         screensize(1900, 980)
 
@@ -15,8 +15,9 @@ class Dé(Turtle):
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
 
-        # X et Y, position du sommet gauche du bas du carré, ce qui permet d'avoir un carré centré
-        self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
+        if calculer_pos:
+            # X et Y, position du sommet gauche du bas du carré, ce qui permet d'avoir un carré centré
+            self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
     def carré(self):
         self.seth(0)
@@ -157,13 +158,15 @@ def dessiner_un_max_de_carrés():
 
     x, y = ((premiere_pos[0] - coté_carré / 2), (premiere_pos[1] - coté_carré / 2))
 
-    pos_premiere_ligne = pos_début_ligne()
+    pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne)
 
 
-    for pos in pos_colonne:
+    for pos in pos_premiere_ligne:
         x, y = pos
-        print(f"pos = {pos}")
         x, y= ((x - coté_carré / 2), (y - coté_carré / 2))
+        dé = Dé(coté_carré, x, y)
+        dé.face_vide()
+        dé.calcule(1)
 
 
 def colonnes_et_lignes(coté_carré, width, height):
@@ -182,9 +185,7 @@ def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
 
 
 if __name__ == "__main__":
-    dé = Dé(100, 0, 0)
-    dé.combien_de_dés_max()
-    print(dé.x)
+    dessiner_un_max_de_carrés()
     """nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
     taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
     taille_par_dix = taille_carré / 10
