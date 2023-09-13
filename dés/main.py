@@ -1,6 +1,7 @@
 from dé import Dé
-from turtle import screensize, done
+from turtle import screensize, done, update
 import random
+import time
 
 def dessiner_un_max_de_dés():
     coté_carré = 100
@@ -102,4 +103,5 @@ if __name__ == "__main__":
             dé.face_vide()
             dé.calcule(random.randint(1, 6))
 
+    update()
     done()
