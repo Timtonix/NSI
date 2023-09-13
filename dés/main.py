@@ -20,7 +20,6 @@ class Dé(Turtle):
 
         # Si on ne passe pas les positions déja calculés
         if calculer_pos:
-            print(calculer_pos)
             # X et Y, position du sommet gauche du bas du carré, ce qui permet d'avoir un carré centré
             self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
@@ -115,7 +114,7 @@ class Dé(Turtle):
             self.point_milieu(plusieurs=True)
 
 
-def dessiner_un_max_de_carrés():
+def dessiner_un_max_de_dés():
     coté_carré = 100
     dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
     width, height = screensize()
@@ -170,7 +169,7 @@ def dessiner_dé(coté_carré, pos_list):
         dé = Dé(coté_carré, x, y, False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
-        time.sleep(0.05)
+        time.sleep(0.005)
         update()
 
 
@@ -178,40 +177,41 @@ def choix():
     tous_les_dés = input("Voulez vous afficher un maximum de dés selon la taille de l'écran et de votre dé ? "
                          "\n[y/n] >").strip()
 
-    if tous_les_dés == "y":
-        pass
-    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
-    taille_dé = int(input("La taille du dé [100; 350])\n>").strip())
+    if "y" in tous_les_dés:
+        nombre_dés = "all"
+        taille_dé = random.randint(100, 150)
+    else:
+        nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
+        taille_dé = int(input("La taille du dé [100; 350])\n>").strip())
 
-    if taille_dé < 100 or taille_dé > 350 :
-        raise ValueError(f"La taille du carré {taille_dé} ne convient pas !")
+        if taille_dé < 100 or taille_dé > 350 :
+            raise ValueError(f"La taille du carré {taille_dé} ne convient pas !")
 
-    return (nombre_dés, taille_dé)
+    return nombre_dés, taille_dé
+
 
 if __name__ == "__main__":
-    dessiner_un_max_de_carrés()
 
     nombre_dés, taille_carré = choix()
-    
-    taille_par_dix = taille_carré / 10
-    posx = 0
-    posy = 0
 
-    position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
-                      (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
-    
+    if nombre_dés == "all":
+        dessiner_un_max_de_dés()
+    else:
+        taille_par_dix = taille_carré / 10
+        posx = 0
+        posy = 0
 
-    if nombre_dés == 
-
-    itération = 0
-    for i in range(nombre_dés):
-        if i < 5:
-            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
-        else:
-            dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
-        dé.face_vide()
-        dé.calcule(random.randint(1, 6))
+        # Position des 5 dés
+        position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
+                          (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
 
 
+        for i in range(nombre_dés):
+            if i < 5:
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+            else:
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
+            dé.face_vide()
+            dé.calcule(random.randint(1, 6))
 
     done()
