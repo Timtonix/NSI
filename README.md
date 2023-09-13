@@ -2,9 +2,9 @@
 [Description]
 
 # Liste de tout les Projets
-## Projet N°1 - [Générateur de Dès](/tree/main/dés)
+## Projet N°1 - [Générateur de Dés](/tree/main/dés)
 
-Un script qui génère aléatoirement un dès
+Un script qui génère aléatoirement un dés
 
 
 # D'autres projets NSI-Phyton
