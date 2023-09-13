@@ -13,7 +13,7 @@ palette_liste = [("red", "#ffb3ba"), ("orange", "#ffdfba"), ("yellow", "#ffffba"
 
 def dessiner_un_max_de_dés():
 
-    coté_carré = random.randint(100, 150)
+    coté_carré = 100
     print(coté_carré)
 
     dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
@@ -86,7 +86,7 @@ def choix():
 
     if "y" in tous_les_dés:
         nombre_dés = "all"
-        taille_dé = random.randint(100, 150)
+        taille_dé = 100
     else:
         nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
         taille_dé = int(input("La taille du dé [100; 350])\n>").strip())
@@ -99,7 +99,7 @@ def choix():
 
 if __name__ == "__main__":
     nombre_dés, taille_carré = choix()
-    bgcolor("#E2A0FF")
+    bgcolor("black")
     if nombre_dés == "all":
         dessiner_un_max_de_dés()
     else:
