@@ -1,4 +1,5 @@
-from turtle import Turtle, done
+from turtle import Turtle, done, update, tracer, Screen
+from turtle import *
 import random
 import time
 
@@ -6,9 +7,16 @@ import time
 class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
-        self.speed(0)
+        screensize(1920, 1080)
+
+        # On fait en sorte que le traçage soit instantané
+        Screen()
+        tracer(0)
+
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
+
+        # X et Y, position du sommet gauche du bas du carré, ce qui permet d'avoir un carré centré
         self.x, self.y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
 
     def carré(self):
@@ -101,18 +109,41 @@ class Dé(Turtle):
             # On spécifie que l'on veut plusieurs points, pas comme le simple point du milieu pour le 1, 3 et 5
             self.point_milieu(plusieurs=True)
 
+    def combien_de_dés_max(self):
+        nombre_colonne = window_height() // (self.coté_carré + (self.coté_carré // 10) // 2)
+        nombre_ligne = window_width() // (self.coté_carré + (self.coté_carré // 10) // 2)
+
+        premiere_pos = (self.coté_carré // 2, self.coté_carré // 2)
+        pos_colonne = []
+        for point in range(nombre_colonne):
+            pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + (self.coté_carré + (self.coté_carré // 10) // 2) * point))
+
+        for pos in pos_colonne:
+            print(pos)
+            x, y = pos
+            x, y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
+            print(f"x {x}, y {y}")
+            self.aller(x, y)
+            for _ in range(4):
+                seth(0)
+                forward(100)
+                left(90)
+
+
 
 
 if __name__ == "__main__":
-    nombre_dés = int(input("Combien de dés voulez-vous ?\n>").strip())
-    taille_carré = int(input("La taille du dé [100; 400])\n>").strip())
+    dé = Dé(100, 0, 0)
+    dé.combien_de_dés_max()
+    """nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
+    taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
     taille_par_dix = taille_carré / 10
     posx = 0
     posy = 0
 
     position_carré = [(posx, posy), (posx - taille_carré - taille_par_dix, posy), (posx + taille_carré + taille_par_dix, posy),
                       (posx, posy -taille_carré -taille_par_dix), (posx, posy + taille_carré + taille_par_dix )]
-    if taille_carré < 100 or taille_carré > 400 :
+    if taille_carré < 100 or taille_carré > 350 :
         raise ValueError(f"La taille du carré {taille_carré} ne convient pas !")
 
 
@@ -123,9 +154,9 @@ if __name__ == "__main__":
         else:
             dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
         dé.face_vide()
-        dé.calcule(random.randint(1, 6))
+        dé.calcule(random.randint(1, 6))"""
 
-
+    update()
 
 
     done()
