@@ -1,10 +1,11 @@
 from dé import Dé
-from turtle import screensize, done, update
+from turtle import screensize, done, update, onkeypress, bgcolor
 import random
 import time
 
 def dessiner_un_max_de_dés():
-    coté_carré = 100
+    coté_carré = random.randint(100, 150)
+    print(coté_carré)
     dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
     width, height = screensize()
 
@@ -80,9 +81,8 @@ def choix():
 
 
 if __name__ == "__main__":
-
     nombre_dés, taille_carré = choix()
-
+    bgcolor("#E2A0FF")
     if nombre_dés == "all":
         dessiner_un_max_de_dés()
     else:

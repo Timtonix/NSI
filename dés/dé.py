@@ -1,6 +1,5 @@
-from turtle import Turtle, done, update, tracer, Screen, screensize, window_width, window_height
-import random
-import time
+from turtle import Turtle, tracer, Screen, screensize
+
 
 
 class Dé(Turtle):
@@ -27,15 +26,18 @@ class Dé(Turtle):
         self.seth(0)
         self.aller(self.x, self.y)
 
+        self.fillcolor("#FFC1CF")
+        self.begin_fill()
         for i in range(4):
             self.forward(self.coté_carré)
             self.left(90)
+        self.end_fill()
 
     def cercle(self, x: float, y: float):
         # Dessiner un cercle, son centre se trouve sur les coordonnées données
         self.seth(0)
         self.aller(x, y - self.rayon_cercle)
-        self.fillcolor("purple")
+        self.fillcolor("#E8FFB7")
         self.begin_fill()
         self.circle(self.rayon_cercle)
         self.end_fill()
