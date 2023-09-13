@@ -136,7 +136,7 @@ def dessiner_un_max_de_carrés():
         pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne - i)
         pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne - i)
 
-
+        dessiner_dé(coté_carré, [premiere_pos])
         dessiner_dé(coté_carré, pos_premiere_colonne)
         dessiner_dé(coté_carré, pos_premiere_ligne)
 
@@ -149,7 +149,7 @@ def colonnes_et_lignes(coté_carré, width, height):
 
 def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
     pos_début_ligne_list = []
-    for point in range(nombre_ligne):
+    for point in range(1, nombre_ligne):
         pos_début_ligne_list.append(
             (premiere_pos[0], premiere_pos[1] - point * (coté_carré + (coté_carré // 10) // 2)))
 
@@ -157,7 +157,7 @@ def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
 
 def pos_début_colonne(premiere_pos, coté_carré, nombre_ligne):
     pos_début_colonne_list = []
-    for point in range(nombre_ligne):
+    for point in range(1, nombre_ligne):
         pos_début_colonne_list.append(
             (premiere_pos[0]  + point * (coté_carré + (coté_carré // 10) // 2), premiere_pos[1]))
 
