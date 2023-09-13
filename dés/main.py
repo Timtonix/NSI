@@ -1,5 +1,4 @@
-from turtle import Turtle, done, update, tracer, Screen
-from turtle import *
+from turtle import Turtle, done, update, tracer, Screen, screensize, window_width, window_height
 import random
 import time
 
@@ -7,7 +6,7 @@ import time
 class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
-        screensize(1920, 1080)
+        screensize(1800, 960)
 
         # On fait en sorte que le traçage soit instantané
         Screen()
@@ -38,6 +37,7 @@ class Dé(Turtle):
     
     def aller(self, x, y):
         # Aller à un point en levant le stylo
+        print(f"x {x} et y {y}")
         self.up()
         self.goto(x, y)
         self.down()
@@ -110,11 +110,28 @@ class Dé(Turtle):
             self.point_milieu(plusieurs=True)
 
     def combien_de_dés_max(self):
-        nombre_colonne = window_height() // (self.coté_carré + (self.coté_carré // 10) // 2)
-        nombre_ligne = window_width() // (self.coté_carré + (self.coté_carré // 10) // 2)
+        width, height = screensize()
 
-        premiere_pos = (self.coté_carré // 2, self.coté_carré // 2)
-        pos_colonne = []
+        # Les coordonées du repère orthonormé
+        repere = {"x": (-(width // 2), width // 2), "y": (-(height//2), height//2)}
+        print(repere)
+
+        nombre_colonne = height // (self.coté_carré + (self.coté_carré // 10) // 2)
+        nombre_ligne = width // (self.coté_carré + (self.coté_carré // 10) // 2)
+
+        premiere_pos = (repere["x"][0] + self.coté_carré // 2, repere["y"][1] - self.coté_carré // 2)
+        print(premiere_pos)
+
+        self.aller(premiere_pos[0], premiere_pos[1])
+        self.down()
+
+        self.x, self.y = (-(premiere_pos[0] + self.coté_carré / 2), -(premiere_pos[1] + self.coté_carré / 2))
+        self.x = premiere_pos[0]
+        self.y = premiere_pos[1]
+
+        self.carré()
+
+        """pos_colonne = []
         for point in range(nombre_colonne):
             pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + (self.coté_carré + (self.coté_carré // 10) // 2) * point))
 
@@ -127,7 +144,7 @@ class Dé(Turtle):
             for _ in range(4):
                 seth(0)
                 forward(100)
-                left(90)
+                left(90)"""
 
 
 
@@ -135,6 +152,7 @@ class Dé(Turtle):
 if __name__ == "__main__":
     dé = Dé(100, 0, 0)
     dé.combien_de_dés_max()
+    print(dé.x)
     """nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
     taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
     taille_par_dix = taille_carré / 10

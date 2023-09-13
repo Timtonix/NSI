@@ -17,4 +17,4 @@
 > Ex: 1080/2 -> [540; -540], on voit que le bord haut à gauche de l'écran est 540
 
 - Ensuite on génère tous les points possible pour une ligne et pour une colone.
->
+> 
