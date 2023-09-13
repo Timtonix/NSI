@@ -17,4 +17,7 @@
 > Ex: 1080/2 -> [540; -540], on voit que le bord haut à gauche de l'écran est 540
 
 - Ensuite on génère tous les points possible pour une ligne et pour une colone.
-> 
+> Tout a été fait, on calcule la première pos en fonction de la taille du carré  
+> Puis avec cette pos on calcule tout le rest
+
+- Pour calculer tous les autres pos de l'écran, on incrémente la première pos d'un carré puis on recommence à calculer les colonnes et les lignes
