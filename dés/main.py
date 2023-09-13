@@ -6,7 +6,7 @@ import time
 class Dé(Turtle):
     def __init__(self, coté_carré, x, y):
         super().__init__(visible=False)
-        screensize(1800, 960)
+        screensize(1900, 980)
 
         # On fait en sorte que le traçage soit instantané
         Screen()
@@ -23,6 +23,7 @@ class Dé(Turtle):
         self.aller(self.x, self.y)
 
         for i in range(4):
+            print(self.pos())
             self.forward(self.coté_carré)
             self.left(90)
 
@@ -116,22 +117,19 @@ class Dé(Turtle):
         repere = {"x": (-(width // 2), width // 2), "y": (-(height//2), height//2)}
         print(repere)
 
-        nombre_colonne = height // (self.coté_carré + (self.coté_carré // 10) // 2)
-        nombre_ligne = width // (self.coté_carré + (self.coté_carré // 10) // 2)
+        nombre_colonne = width // (self.coté_carré + (self.coté_carré // 10) // 2)
+        nombre_ligne = height // (self.coté_carré + (self.coté_carré // 10) // 2)
+        print(f"colonnes: {nombre_colonne} - lignes: {nombre_ligne}")
 
         premiere_pos = (repere["x"][0] + self.coté_carré // 2, repere["y"][1] - self.coté_carré // 2)
         print(premiere_pos)
 
-        self.aller(premiere_pos[0], premiere_pos[1])
-        self.down()
 
-        self.x, self.y = (-(premiere_pos[0] + self.coté_carré / 2), -(premiere_pos[1] + self.coté_carré / 2))
-        self.x = premiere_pos[0]
-        self.y = premiere_pos[1]
+        self.x, self.y = ((premiere_pos[0] - self.coté_carré / 2), (premiere_pos[1] - self.coté_carré / 2))
 
         self.carré()
 
-        """pos_colonne = []
+        pos_colonne = []
         for point in range(nombre_colonne):
             pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + (self.coté_carré + (self.coté_carré // 10) // 2) * point))
 
