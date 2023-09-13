@@ -170,7 +170,7 @@ def dessiner_dé(coté_carré, pos_list):
         x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
         dé = Dé(coté_carré, x, y, False)
         dé.face_vide()
-        dé.calcule(1)
+        dé.calcule(random.randint(1, 6))
 
 
 if __name__ == "__main__":
