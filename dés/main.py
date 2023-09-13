@@ -114,37 +114,6 @@ class Dé(Turtle):
             # On spécifie que l'on veut plusieurs points, pas comme le simple point du milieu pour le 1, 3 et 5
             self.point_milieu(plusieurs=True)
 
-    def combien_de_dés_max(self):
-        width, height = screensize()
-
-        # Les coordonées du repère orthonormé
-        repere = {"x": (-(width // 2), width // 2), "y": (-(height//2), height//2)}
-        print(repere)
-
-        nombre_colonne = width // (self.coté_carré + (self.coté_carré // 10) // 2)
-        nombre_ligne = height // (self.coté_carré + (self.coté_carré // 10) // 2)
-        print(f"colonnes: {nombre_colonne} - lignes: {nombre_ligne}")
-
-        premiere_pos = (repere["x"][0] + self.coté_carré // 2, repere["y"][1] - self.coté_carré // 2)
-        print(premiere_pos)
-
-
-        self.x, self.y = ((premiere_pos[0] - self.coté_carré / 2), (premiere_pos[1] - self.coté_carré / 2))
-
-        self.carré()
-
-        pos_colonne = []
-        for point in range(nombre_ligne):
-            pos_colonne.append((premiere_pos[0], premiere_pos[1] - point * (self.coté_carré + (self.coté_carré // 10) // 2)))
-
-        print(pos_colonne)
-
-        for pos in pos_colonne:
-            x, y = pos
-            print(f"pos = {pos}")
-            self.x, self.y = ((x - self.coté_carré / 2), (y - self.coté_carré / 2))
-            self.carré()
-
 
 def dessiner_un_max_de_carrés():
     coté_carré = 100
