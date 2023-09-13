@@ -23,7 +23,6 @@ class Dé(Turtle):
         self.aller(self.x, self.y)
 
         for i in range(4):
-            print(self.pos())
             self.forward(self.coté_carré)
             self.left(90)
 
@@ -130,20 +129,55 @@ class Dé(Turtle):
         self.carré()
 
         pos_colonne = []
-        for point in range(nombre_colonne):
-            pos_colonne.append((self.coté_carré // 2, self.coté_carré // 2 + (self.coté_carré + (self.coté_carré // 10) // 2) * point))
+        for point in range(nombre_ligne):
+            pos_colonne.append((premiere_pos[0], premiere_pos[1] - point * (self.coté_carré + (self.coté_carré // 10) // 2)))
+
+        print(pos_colonne)
 
         for pos in pos_colonne:
-            print(pos)
             x, y = pos
-            x, y = (-(x + self.coté_carré / 2), -(y + self.coté_carré / 2))
-            print(f"x {x}, y {y}")
-            self.aller(x, y)
-            for _ in range(4):
-                seth(0)
-                forward(100)
-                left(90)"""
+            print(f"pos = {pos}")
+            self.x, self.y = ((x - self.coté_carré / 2), (y - self.coté_carré / 2))
+            self.carré()
 
+
+def dessiner_un_max_de_carrés():
+    coté_carré = 100
+    dédebase = Dé(coté_carré, 0, 0)
+    width, height = screensize()
+
+    # Les coordonées du repère orthonormé
+    repere = {"x": (-(width // 2), width // 2), "y": (-(height // 2), height // 2)}
+    print(repere)
+
+    nombre_colonne, nombre_ligne = colonnes_et_lignes(coté_carré, width, height)
+
+    premiere_pos = (repere["x"][0] + coté_carré // 2, repere["y"][1] - coté_carré // 2)
+    print(premiere_pos)
+
+    x, y = ((premiere_pos[0] - coté_carré / 2), (premiere_pos[1] - coté_carré / 2))
+
+    pos_premiere_ligne = pos_début_ligne()
+
+
+    for pos in pos_colonne:
+        x, y = pos
+        print(f"pos = {pos}")
+        x, y= ((x - coté_carré / 2), (y - coté_carré / 2))
+
+
+def colonnes_et_lignes(coté_carré, width, height):
+    nombre_colonne = width // (coté_carré + (coté_carré // 10) // 2)
+    nombre_ligne = height // (coté_carré + (coté_carré // 10) // 2)
+    return (nombre_colonne, nombre_ligne)
+
+def pos_début_ligne(premiere_pos, coté_carré, nombre_ligne):
+    pos_début_ligne = []
+    for point in range(nombre_ligne):
+        pos_début_ligne.append(
+            (premiere_pos[0], premiere_pos[1] - point * (coté_carré + (coté_carré // 10) // 2)))
+
+    return pos_début_ligne
 
 
 
