@@ -127,11 +127,10 @@ def dessiner_un_max_de_carrés():
     nombre_colonne, nombre_ligne = colonnes_et_lignes(coté_carré, width, height)
 
     for i in range(nombre_ligne):
+        # On recalcule la position du premier dé à chaque fois
         premiere_pos = (repere["x"][0] + coté_carré // 2 + (coté_carré + (coté_carré // 10) // 2)*i,
                         repere["y"][1] - coté_carré // 2 - (coté_carré + (coté_carré // 10) // 2)*i)
         print(premiere_pos)
-
-        x, y = ((premiere_pos[0] - coté_carré / 2), (premiere_pos[1] - coté_carré / 2))
 
         pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne - i)
         pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne - i)
@@ -173,10 +172,17 @@ def dessiner_dé(coté_carré, pos_list):
         dé.calcule(random.randint(1, 6))
 
 
+def choix():
+    nombre_dés = 1  # int(input("Combien de dés voulez-vous ?\n>").strip())
+    taille_dé = int(input("La taille du dé [100; 350])\n>").strip())
+
+    return (nombre_dés, taille_dé)
+
 if __name__ == "__main__":
     dessiner_un_max_de_carrés()
-    """nombre_dés = 1 # int(input("Combien de dés voulez-vous ?\n>").strip())
-    taille_carré = 150 # int(input("La taille du dé [100; 350])\n>").strip())
+
+
+    nombre_dés, taille_carré = choix()création fonction choix
     taille_par_dix = taille_carré / 10
     posx = 0
     posy = 0
@@ -194,7 +200,7 @@ if __name__ == "__main__":
         else:
             dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
         dé.face_vide()
-        dé.calcule(random.randint(1, 6))"""
+        dé.calcule(random.randint(1, 6))
 
     update()
 
