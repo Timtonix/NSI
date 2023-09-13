@@ -43,7 +43,6 @@ class Dé(Turtle):
     
     def aller(self, x, y):
         # Aller à un point en levant le stylo
-        print(f"x {x} et y {y}")
         self.up()
         self.goto(x, y)
         self.down()
@@ -158,28 +157,20 @@ def dessiner_un_max_de_carrés():
 
     nombre_colonne, nombre_ligne = colonnes_et_lignes(coté_carré, width, height)
 
-    premiere_pos = (repere["x"][0] + coté_carré // 2, repere["y"][1] - coté_carré // 2)
-    print(premiere_pos)
+    for i in range(nombre_ligne):
+        premiere_pos = (repere["x"][0] + coté_carré // 2 + (coté_carré + (coté_carré // 10) // 2)*i,
+                        repere["y"][1] - coté_carré // 2 - (coté_carré + (coté_carré // 10) // 2)*i)
+        print(premiere_pos)
 
-    x, y = ((premiere_pos[0] - coté_carré / 2), (premiere_pos[1] - coté_carré / 2))
+        x, y = ((premiere_pos[0] - coté_carré / 2), (premiere_pos[1] - coté_carré / 2))
 
-    pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne)
-    pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne)
+        pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne - i)
+        pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne - i)
 
 
-    for pos in pos_premiere_ligne:
-        x, y = pos
-        x, y= ((x - coté_carré / 2), (y - coté_carré / 2))
-        dé = Dé(coté_carré, x, y, False)
-        dé.face_vide()
-        dé.calcule(1)
+        dessiner_dé(coté_carré, pos_premiere_colonne)
+        dessiner_dé(coté_carré, pos_premiere_ligne)
 
-    for pos in pos_premiere_colonne:
-        x, y = pos
-        x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
-        dé = Dé(coté_carré, x, y, False)
-        dé.face_vide()
-        dé.calcule(1)
 
 
 def colonnes_et_lignes(coté_carré, width, height):
@@ -203,6 +194,14 @@ def pos_début_colonne(premiere_pos, coté_carré, nombre_ligne):
 
     return pos_début_colonne_list
 
+
+def dessiner_dé(coté_carré, pos_list):
+    for pos in pos_list:
+        x, y = pos
+        x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
+        dé = Dé(coté_carré, x, y, False)
+        dé.face_vide()
+        dé.calcule(1)
 
 
 if __name__ == "__main__":
