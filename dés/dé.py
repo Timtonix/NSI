@@ -8,7 +8,7 @@ def get_screen_size():
 
 
 class Dé(Turtle):
-    def __init__(self, coté_carré, x, y, calculer_pos: bool = True):
+    def __init__(self, coté_carré, x, y, couleurs: tuple = ("white", "black"), calculer_pos: bool = True):
         super().__init__(visible=False)
 
         self.width, self.height = get_screen_size()
@@ -20,6 +20,8 @@ class Dé(Turtle):
 
         self.coté_carré = coté_carré
         self.rayon_cercle = coté_carré / 10
+
+        self.couleurs = couleurs
 
         self.x = x
         self.y = y
@@ -33,7 +35,7 @@ class Dé(Turtle):
         self.seth(0)
         self.aller(self.x, self.y)
 
-        self.fillcolor("#FFC1CF")
+        self.fillcolor(self.couleurs[0])
         self.begin_fill()
         for i in range(4):
             self.forward(self.coté_carré)
@@ -44,7 +46,7 @@ class Dé(Turtle):
         # Dessiner un cercle, son centre se trouve sur les coordonnées données
         self.seth(0)
         self.aller(x, y - self.rayon_cercle)
-        self.fillcolor("#E8FFB7")
+        self.fillcolor(self.couleurs[1])
         self.begin_fill()
         self.circle(self.rayon_cercle)
         self.end_fill()

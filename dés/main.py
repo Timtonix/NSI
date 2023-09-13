@@ -4,16 +4,27 @@ import random
 import time
 
 
+palette = {"red": "#ffb3ba", "orange": "#ffdfba", "yellow": "#ffffba", "green": "#baffc9", "blue": "#bae1ff",
+           "purple": "#D2B3FF"}
+palette_liste = [("red", "#ffb3ba"), ("orange", "#ffdfba"), ("yellow", "#ffffba"), ("green", "#baffc9"),
+                 ("blue", "#bae1ff"),
+                 ("purple", "#D2B3FF")]
+
+
 def dessiner_un_max_de_dés():
+
     coté_carré = random.randint(100, 150)
     print(coté_carré)
+
     dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
+    # On récupère la taille de l'écran
     width, height = dédebase.width, dédebase.height
 
     # Les coordonées du repère orthonormé
     repere = {"x": (-(width // 2), width // 2), "y": (-(height // 2), height // 2)}
     print(repere)
 
+    # On récupère le nombre de lignes et de colonnes que l'on va pouvoir dessiner
     nombre_colonne, nombre_ligne = colonnes_et_lignes(coté_carré, width, height)
 
     for i in range(nombre_ligne):
@@ -25,9 +36,9 @@ def dessiner_un_max_de_dés():
         pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne - i)
         pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne - i)
 
-        dessiner_dé(coté_carré, [premiere_pos])
-        dessiner_dé(coté_carré, pos_premiere_colonne)
-        dessiner_dé(coté_carré, pos_premiere_ligne)
+        dessiner_dé(coté_carré, [premiere_pos], 0)
+        dessiner_dé(coté_carré, pos_premiere_colonne, 1)
+        dessiner_dé(coté_carré, pos_premiere_ligne, 1)
 
 
 def colonnes_et_lignes(coté_carré, width, height):
@@ -54,13 +65,17 @@ def pos_début_colonne(premiere_pos, coté_carré, nombre_ligne):
     return pos_début_colonne_list
 
 
-def dessiner_dé(coté_carré, pos_list):
+def dessiner_dé(coté_carré, pos_list, couleur):
     for pos in pos_list:
+        if couleur == 6:
+            couleur = 0
+
         x, y = pos
         x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
-        dé = Dé(coté_carré, x, y, calculer_pos=False)
+        dé = Dé(coté_carré, x, y, couleurs=(palette_liste[couleur][1], "black"),calculer_pos=False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
+        couleur += 1
         time.sleep(0.005)
         update()
 

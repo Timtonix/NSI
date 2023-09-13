@@ -30,3 +30,11 @@
 
 ### Mettre les dés en arc-en-ciel
 - On va faire en sorte qu'a chaque incrémentation on change la couleur du dé
+
+> **Couleur** :  
+> - Rouge: #ffb3ba
+> - Orange: #ffdfba
+> - Yellow: #ffffba
+> - Green: #baffc9
+> - Blue: #bae1ff
+> - Purple: #D2B3FF
