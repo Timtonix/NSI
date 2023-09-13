@@ -5,6 +5,7 @@
 - [ ] Bouton pour relancer les dés
 - [ ] Faire une toute petite animation
 - [ ] Modifier la forme des dés
+- [ ] Faire une couleur arc-en-ciel des dés
 
 
 
@@ -25,3 +26,7 @@
 
 ### Touche pour relancer les dés
 > On peut utiliser le module turtle qui écoute les touches du clavier
+- Ça marche pas de fou avec keyonpress
+
+### Mettre les dés en arc-en-ciel
+- On va faire en sorte qu'a chaque incrémentation on change la couleur du dé

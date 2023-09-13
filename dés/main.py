@@ -7,7 +7,8 @@ import time
 def dessiner_un_max_de_dés():
     coté_carré = random.randint(100, 150)
     print(coté_carré)
-    width, height = screensize()
+    dédebase = Dé(coté_carré, 0, 0, calculer_pos=False)
+    width, height = dédebase.width, dédebase.height
 
     # Les coordonées du repère orthonormé
     repere = {"x": (-(width // 2), width // 2), "y": (-(height // 2), height // 2)}
@@ -57,7 +58,7 @@ def dessiner_dé(coté_carré, pos_list):
     for pos in pos_list:
         x, y = pos
         x, y = ((x - coté_carré / 2), (y - coté_carré / 2))
-        dé = Dé(coté_carré, x, y, get_screen_size(), False)
+        dé = Dé(coté_carré, x, y, calculer_pos=False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
         time.sleep(0.005)
@@ -97,9 +98,9 @@ if __name__ == "__main__":
 
         for i in range(nombre_dés):
             if i < 5:
-                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1], screen=get_screen_size())
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
             else:
-                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1], screen=get_screen_size())
+                dé = Dé(taille_carré, position_carré[i][0], position_carré[i][1])
             dé.face_vide()
             dé.calcule(random.randint(1, 6))
 
