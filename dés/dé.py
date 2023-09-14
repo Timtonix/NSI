@@ -36,12 +36,12 @@ class Dé(Turtle):
         self.seth(0)
         self.aller(self.x, self.y)
 
-        # self.fillcolor(self.couleurs[0])
-        # self.begin_fill()
+        self.fillcolor(self.couleurs[0])
+        self.begin_fill()
         for i in range(4):
             self.forward(self.coté_carré)
-            self.circle(10, 90)
-        # self.end_fill()
+            self.left(90)
+        self.end_fill()
 
     def cercle(self, x: float, y: float):
         # Dessiner un cercle, son centre se trouve sur les coordonnées données

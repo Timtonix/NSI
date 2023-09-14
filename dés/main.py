@@ -99,7 +99,7 @@ def choix():
 
 if __name__ == "__main__":
     nombre_dés, taille_carré = choix()
-    # bgcolor("black")
+    bgcolor("black")
     if nombre_dés == "all":
         dessiner_un_max_de_dés()
     else:
