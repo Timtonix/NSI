@@ -43,12 +43,11 @@ def dessiner_un_max_de_dés():
         liste_un_angle.append(dessiner_dé(coté_carré, pos_premiere_ligne, 1))
         liste_de_tous_les_dés.append(liste_un_angle)
         liste_un_angle = []
-    time.sleep(1)
+
     for angles in liste_de_tous_les_dés:
         for des in angles:
-            print(f"Premier : {des}")
-        print("STOP")
-    print("OKKK")
+            print(len(des))
+
 
 
 def colonnes_et_lignes(coté_carré, width, height):
@@ -88,8 +87,6 @@ def dessiner_dé(coté_carré, pos_list, couleur):
         dé.calcule(random.randint(1, 6))
         liste_dé.append(dé)
         couleur += 1
-        time.sleep(0.005)
-        update()
     return liste_dé
 
 
