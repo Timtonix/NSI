@@ -27,6 +27,8 @@ def dessiner_un_max_de_dés():
     # On récupère le nombre de lignes et de colonnes que l'on va pouvoir dessiner
     nombre_colonne, nombre_ligne = colonnes_et_lignes(coté_carré, width, height)
 
+    liste_de_tous_les_dés = []
+    liste_un_angle = []
     for i in range(nombre_ligne):
         # On recalcule la position du premier dé à chaque fois
         premiere_pos = (repere["x"][0] + coté_carré // 2 + (coté_carré + (coté_carré // 10) // 2)*i,
@@ -36,9 +38,17 @@ def dessiner_un_max_de_dés():
         pos_premiere_ligne = pos_début_ligne(premiere_pos, coté_carré, nombre_ligne - i)
         pos_premiere_colonne = pos_début_colonne(premiere_pos, coté_carré, nombre_colonne - i)
 
-        dessiner_dé(coté_carré, [premiere_pos], 0)
-        dessiner_dé(coté_carré, pos_premiere_colonne, 1)
-        dessiner_dé(coté_carré, pos_premiere_ligne, 1)
+        liste_un_angle.append(dessiner_dé(coté_carré, [premiere_pos], 0))
+        liste_un_angle.append(dessiner_dé(coté_carré, pos_premiere_colonne, 1))
+        liste_un_angle.append(dessiner_dé(coté_carré, pos_premiere_ligne, 1))
+        liste_de_tous_les_dés.append(liste_un_angle)
+        liste_un_angle = []
+    time.sleep(1)
+    for angles in liste_de_tous_les_dés:
+        for des in angles:
+            print(f"Premier : {des}")
+        print("STOP")
+    print("OKKK")
 
 
 def colonnes_et_lignes(coté_carré, width, height):
@@ -66,6 +76,7 @@ def pos_début_colonne(premiere_pos, coté_carré, nombre_ligne):
 
 
 def dessiner_dé(coté_carré, pos_list, couleur):
+    liste_dé = []
     for pos in pos_list:
         if couleur == 6:
             couleur = 0
@@ -75,9 +86,11 @@ def dessiner_dé(coté_carré, pos_list, couleur):
         dé = Dé(coté_carré, x, y, couleurs=(palette_liste[couleur][1], "black"),calculer_pos=False)
         dé.face_vide()
         dé.calcule(random.randint(1, 6))
+        liste_dé.append(dé)
         couleur += 1
         time.sleep(0.005)
         update()
+    return liste_dé
 
 
 def choix():

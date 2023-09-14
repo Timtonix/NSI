@@ -126,3 +126,4 @@ class Dé(Turtle):
             self.point_milieu(plusieurs=True)
 
 
+
