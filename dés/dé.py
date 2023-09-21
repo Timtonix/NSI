@@ -80,7 +80,6 @@ class Dé(Turtle):
         self.carré()
         self.aller(self.x, self.y)
 
-
     """
     Différentes faces du dé
     """
