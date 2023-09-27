@@ -84,6 +84,11 @@ class Dé(Turtle):
     Différentes faces du dé
     """
     def point_milieu(self, plusieurs: bool= False):
+        """
+        Dessine les points du milieu, pour les impairs et le six
+        :param plusieurs:
+        :return:
+        """
         if plusieurs:
             # Les deux points du six
             self.cercle(self.x + self.coté_carré / 4, self.y + (self.coté_carré // 2))
@@ -94,7 +99,12 @@ class Dé(Turtle):
 
 
     def points_cotés(self, invert: bool= False):
-        # Si on a invert, on fait l'inverse par rapport aux pojnts pour un deux, ainsi on peut former un 4
+        """
+        Dessine les points du 2, ou du 4
+        :param invert:
+        :return:
+        """
+        # Si on a invert, on fait l'inverse par rapport aux points pour un deux, ainsi on peut former un 4
         if invert:
             self.cercle(self.x + self.coté_carré / 4 * 3, self.y + self.coté_carré / 4 )
             self.cercle(self.x + self.coté_carré / 4, self.y + self.coté_carré / 4 * 3 )
@@ -105,6 +115,11 @@ class Dé(Turtle):
 
 
     def calcule(self, nombre_points: int):
+        """
+        On décide quels points à dessiner sur le dés en fonction de `nombre_points`
+        :param nombre_points:
+        :return:
+        """
         # On vérifie que le nombre donné est paire
         if nombre_points % 2 == 0 :
             self.points_cotés()
