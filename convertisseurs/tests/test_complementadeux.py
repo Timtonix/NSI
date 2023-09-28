@@ -8,4 +8,8 @@ def test_binary_to_decimal(value, expected):
     assert base_ten == expected
 
 
+def test_raise_binary_to_decimal():
+    value = "010101010a010110"
+    with pytest.raises(ValueError, match=r".* 010101010a010110 *."):
+        cad.binary_to_decimal(value)
 
