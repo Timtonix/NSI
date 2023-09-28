@@ -1,3 +1,5 @@
+import re
+
 import click
 
 
@@ -11,8 +13,12 @@ def get_default_params(input_base, output_base, value):
 
 
 def binary_to_decimal(value: str):
+    if not re.fullmatch("[01]+", value):
+        raise ValueError(f"Unexpected values in {value}. We only accept 1 and 0 for this function")
+
     binary_list = [*value]
     binary_list = binary_list[::-1]
+
 
     base_ten = 0
     for i, number in enumerate(binary_list):
