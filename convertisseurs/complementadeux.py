@@ -14,12 +14,9 @@ def binary_to_decimal(value: str):
     binary_list = [*value]
     binary_list = binary_list[::-1]
 
-
     base_ten = 0
     for i, number in enumerate(binary_list):
 
-        if number != "0" or number != "1":
-            raise ValueError(f"{number} is not 2 based")
 
         number = int(number)
 
