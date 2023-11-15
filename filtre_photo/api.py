@@ -49,3 +49,17 @@ class Filtre:
                 if r >= 128:
                     self.copie.putpixel((x, y), (255, 255, 255))
         self.copie.save(f"noir_blanc.png")
+
+    def filtre_miroir(self):
+        blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                r, g, b = self.copie.getpixel((x, y))
+                # print(f"COULEURS : {r}, {g}, {b}\nPositions : {x, y}")
+                blank.putpixel((self.largeur - x - 1, y), (r, g, b))
+        blank.save(f"miroirx.png")
+
+
+if __name__ == "__main__":
+    filtre = Filtre()
+    filtre.filtre_miroir()
