@@ -48,3 +48,4 @@ class Filtre:
                     continue
                 if r >= 128:
                     self.copie.putpixel((x, y), (255, 255, 255))
+        self.copie.save(f"noir_blanc.png")
