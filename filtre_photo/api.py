@@ -122,11 +122,9 @@ class Filtre:
             for y in range(self.hauteur):
                 couleurs = list(self.copie.getpixel((x, y)))
                 rgb = []
-                for color in colors:
-                    for couleur in couleurs:
-                        if couleur < color:
-                            rgb.append(color)
-                        continue
+                for couleur in couleurs:
+                    rgb.append((couleur // 16) * 32)
+
                 blank.putpixel((x, y), (rgb[0], rgb[1], rgb[2]))
         blank.save("512.png")
 
