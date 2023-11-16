@@ -76,8 +76,6 @@ class Filtre:
                 r = r_tot // n**2
                 g = g_tot // n**2
                 b = b_tot // n**2
-                r_tot = 0
-                print(f"r = {r}, g = {g}, b = {b}")
                 for i in range(n):
                     for j in range(n):
                         blank.putpixel((x + i, y +j), (r, g, b))
@@ -95,10 +93,43 @@ class Filtre:
 
         blank.save("lumiere.png")
 
+    def inc_color(self, couleur, k):
+        blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                r, g, b = self.copie.getpixel((x, y))
+                match couleur:
+                    case "rouge":
+                        r += k
+                        g -= k // 2
+                        b -= k // 2
+                    case "bleu":
+                        b += k
+                        g -= k // 2
+                        r -= k // 2
+                    case "vert":
+                        g += k
+                        r -= k // 2
+                        b -= k // 2
+                blank.putpixel((x, y), (r, g, b))
+        blank.save("inc_color.png")
 
 
-
+    def color512(self):
+        colors = [8, 16, 32, 64, 128, 256]
+        blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                couleurs = list(self.copie.getpixel((x, y)))
+                rgb = []
+                for color in colors:
+                    for couleur in couleurs:
+                        if couleur < color:
+                            rgb.append(color)
+                        continue
+                blank.putpixel((x, y), (rgb[0], rgb[1], rgb[2]))
+        blank.save("512.png")
 
 if __name__ == "__main__":
     filtre = Filtre()
-    filtre.filtre_lum(100)
+    filtre.color512()
