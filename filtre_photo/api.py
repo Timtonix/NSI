@@ -96,50 +96,32 @@ class Filtre:
                 i += 1
         blank.save("pixel.png")
 
-
-    def filtre_pixel9(self):
+    def pixeln3(self, n):
+        start = time.time()
         blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
-        tmp = []
-        pixels = []
-        i = 0
-        for x in range(self.largeur):
-            for y in range(self.hauteur):
-                r, g, b = self.copie.getpixel((x, y))
-                if i == 0:
-                    tmp = [r, g, b]
-                    i += 1
-                    continue
-                tmp[0] += r
-                tmp[1] += g
-                tmp[2] += b
-
-                if i == 8:
-                    pixels.append((tmp[0] // 9, tmp[1] // 9, tmp[2] // 9))
-                    tmp[0] = 0
-                    tmp[1] = 0
-                    tmp[2] = 0
-                    i = 0
-                    continue
-                i += 1
-
-        block = 0
-        i = 0
-        print(len(pixels))
-        for x in range(self.largeur):
-            for y in range(self.hauteur):
-                if i == 9:
-                    i = 0
-                    block += 1
-                try:
-                    blank.putpixel((x, y), (pixels[block][0], pixels[block][1], pixels[block][2]))
-                except IndexError:
-                    print(pixels[block - 1])
-                    print(block)
-                i += 1
+        for x in range(0, self.largeur - n, n):
+            for y in range(0, self.hauteur - n, n):
+                r_tot = 0
+                g_tot = 0
+                b_tot = 0
+                for i in range(n):
+                    for j in range(n):
+                        r, g, b = self.copie.getpixel((x + i, y + j))
+                        r_tot += r
+                        g_tot += g
+                        b_tot += b
+                r = r_tot // n**2
+                g = g_tot // n**2
+                b = b_tot // n**2
+                r_tot = 0
+                print(f"r = {r}, g = {g}, b = {b}")
+                for i in range(n):
+                    for j in range(n):
+                        blank.putpixel((x + i, y +j), (r, g, b))
 
         blank.save("pixel.png")
-
-
+        end = time.time()
+        print(f"TEMPS = {end - start}")
 
 
 
@@ -147,4 +129,4 @@ class Filtre:
 
 if __name__ == "__main__":
     filtre = Filtre()
-    filtre.filtre_pixel9()
+    filtre.pixeln3(20)
