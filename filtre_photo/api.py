@@ -3,7 +3,7 @@ import time
 
 class Filtre:
     def __init__(self):
-        maison = Image.open("maison.jpg")
+        maison = Image.open("sam.PNG")
         self.largeur = maison.width
         self.hauteur = maison.height
 
@@ -59,44 +59,7 @@ class Filtre:
                 blank.putpixel((self.largeur - x - 1, y), (r, g, b))
         blank.save(f"miroir.png")
 
-    def filtre_pixel3(self):
-        blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
-        tmp = []
-        pixels = []
-        i = 0
-        for x in range(self.largeur):
-            for y in range(self.hauteur):
-                r, g, b = self.copie.getpixel((x, y))
-                if i == 0:
-                    tmp = [r, g, b]
-                    i += 1
-                    continue
-                tmp[0] += r
-                tmp[1] += g
-                tmp[2] += b
-
-                if i == 2:
-                    pixels.append((tmp[0] // 3, tmp[1] // 3, tmp[2] // 3))
-                    tmp[0] = 0
-                    tmp[1] = 0
-                    tmp[2] = 0
-                    i = 0
-                    continue
-                i += 1
-
-        block = 0
-        i = 0
-        for x in range(self.largeur):
-            for y in range(self.hauteur):
-                if i == 3:
-                    i = 0
-                    block += 1
-
-                blank.putpixel((x, y), (pixels[block][0], pixels[block][1], pixels[block][2]))
-                i += 1
-        blank.save("pixel.png")
-
-    def pixeln3(self, n):
+    def pixeln(self, n):
         start = time.time()
         blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
         for x in range(0, self.largeur - n, n):
@@ -123,10 +86,19 @@ class Filtre:
         end = time.time()
         print(f"TEMPS = {end - start}")
 
+    def filtre_lum(self, lumiere):
+        blank = Image.new("RGB", (self.largeur, self.hauteur), (0, 0, 0))
+        for x in range(self.largeur):
+            for y in range(self.hauteur):
+                r, g, b = self.copie.getpixel((x, y))
+                blank.putpixel((x, y), (r + lumiere, g + lumiere, b + lumiere))
+
+        blank.save("lumiere.png")
+
 
 
 
 
 if __name__ == "__main__":
     filtre = Filtre()
-    filtre.pixeln3(20)
+    filtre.filtre_lum(100)
