@@ -1,14 +1,15 @@
 from PIL import Image
 import time
 
+
 class Filtre:
-    def __init__(self):
-        maison = Image.open("sam.PNG")
-        self.largeur = maison.width
-        self.hauteur = maison.height
+    def __init__(self, image):
+        f_image = Image.open(image)
+        self.largeur = f_image.width
+        self.hauteur = f_image.height
 
         self.calque = Image.new("RGB", (self.largeur, self.hauteur))
-        self.copie = maison.copy()
+        self.copie = f_image.copy()
 
     def filtre_couleur(self, couleur):
         start = time.time()
@@ -129,5 +130,4 @@ class Filtre:
         blank.save("512.png")
 
 if __name__ == "__main__":
-    filtre = Filtre()
-    filtre.color512()
+    pass

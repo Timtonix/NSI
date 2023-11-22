@@ -1,7 +1,15 @@
 from InquirerPy import prompt, inquirer
+from InquirerPy.validator import PathValidator
 import api
+import rich
 
 
+src_path = inquirer.filepath(
+        message="Enter file to upload:",
+        default="~/",
+        validate=PathValidator(is_file=True, message="Input is not a file"),
+        only_files=True,
+    ).execute()
 questions = [
     {
         "name": "filtre",
@@ -11,7 +19,7 @@ questions = [
 
     }]
 
-filtre = api.Filtre()
+filtre = api.Filtre(src_path)
 couleur = prompt(questions)["filtre"]
 if couleur == "Gris":
     filtre.filtre_gris()
