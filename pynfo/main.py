@@ -45,19 +45,23 @@ def get_info_for_one_mp3(filename):
     # Le nombre de channels audio
     channels = audio.info.channels
     # Le débit (bitrate) en bits par seconde
-    audio.info.bitrate
+    bitrate = audio.info.bitrate
+    bitrate = bitrate//1000
     # Le sampling rate (fréquence d'échantillonnage) en Hz
-    audio.info.sample_rate
+    sampling = audio.info.sample_rate
     # Le bitrate mode (on ne l'utilisera pas ici)
     bit_rate_type = str(audio.info.bitrate_mode)[-3:]
     # Le ripper (extracteur) utilisé
     ripper = audio.info.encoder_info
     # Le mode (0 : Stereo ; 1 : Joint stereo ; 2 : Dual channel ; 3 : Mono)
     mode = audio.info.mode
+    if mode == 0: mode = "Stereo"
+    if mode == 1: mode = "Joint stereo"
+    if mode == 2: mode = "Dual channel"
+    if mode == 3: mode = "Mono"
 
-    return {"album": {"artiste": artiste, "album": album, "genre": genre, "year": year}, "track": {"numero": numero, "titre":titre}}
-
-
+    return {"album": {"artiste": artiste, "album": album, "genre": genre, "year": year, "ripper": ripper, "format": "mp3", "quality": bitrate, "channels": channels, "sampling": sampling, "mode": mode}, "track": {"numero": numero, "titre":titre, "longueur": longueur  }}
+        
 def centre_text(text):
     espace = 70-len(text)
     return " "*10 + text
@@ -69,11 +73,43 @@ def create_nfofile(title):
         print("Le fichier NFO existe déjà")
     return f"./{title}.nfo"
 
+def album_div(artiste, album, template):
+        print(type(template))
+        template.append(tirets(template))
+        template.append(centre_text(artiste + " - " + album))
+        template.append(tirets(template))
+        template.append("")
+        return template
 
-def album_div(artiste, album, nfofile):
-    with open(nfofile, "w") as f:
-        f.write(centre_text(artiste + " - " + album))
-        
+def album_info_div(info, template):
+        template.append("Artist..............: " + info["album"]["artiste"])
+        template.append("Album...............: " + info["album"]["album"])
+        template.append("Genre...............: " + info["album"]["genre"])
+        template.append(f"Year................: {info['album']['year']}")
+        template.append("Ripper..............: " + info["album"]["ripper"])
+        template.append("Format..............: " + info["album"]["format"])
+        template.append(f"Quality.............: {info['album']['quality']} kps")
+        template.append(f"Channels............: {info['album']['channels']}")
+        template.append(f"Sampling rate.......: {info['album']['sampling']} Hz")
+        template.append("Mode................: " + info["album"]["mode"])
+        return template
+
+
+def track_div(template):
+    template.append(tirets)
+    template.append(centre_text("Tracklisting"))
+    template.append(tirets)
+    template.append("")
+    return template
+
+def track_info(info, template):
+    espace = 70 - len(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}") - 7
+    template.append(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}{' '*espace}[{info['track']['longueur']}]")
+    return template
+
+def tirets(template):
+    return "----------------------------------------------------------------------"
+
 
 def read_nfo():
     with open("Dookie.nfo", "r") as f:
@@ -82,11 +118,20 @@ def read_nfo():
 def nfo_file():
     mp3s = get_mp3_in_directory()
     actual_album = None
+    template = []
+
     for mp3 in mp3s:
         info = get_info_for_one_mp3(mp3)
-        actual_album = info["album"]
-        nfo = create_nfofile(info["album"]["album"])
-        album_div(info["album"]["artiste"], info["album"]["album"], nfo)
+        if actual_album != info["album"]:
+            actual_album = info["album"]
+            nfo = create_nfofile(info["album"]["album"])
+            album_div(info["album"]["artiste"], info["album"]["album"], template)
+            album_info_div(info, template)
+        print(template)
+        
+        track_info(info, template)
+    print(template)
+
 
 nfo_file()
 """
