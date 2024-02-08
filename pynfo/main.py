@@ -3,15 +3,19 @@ from mutagen.id3 import ID3
 from os import walk, path
 import time
 
+
 def get_mp3_in_directory():
     files = []
+    cover=False
     for (dirpath, dirnames, filenames) in walk("."):
         for file in filenames:
+
             if file[-3:] == "mp3":
                 files.append(dirpath+"/"+file)
-
+            if file[-3:] in ["jpg", "png"]:
+                cover = True
     mp3s = sort_mp3(files)
-    return mp3s
+    return mp3s, cover
 
 def sort_mp3(files: list):
     s_list = []
@@ -121,7 +125,7 @@ def album_div(artiste, album, template):
         template.append("")
         return template
 
-def album_info_div(info, template):
+def album_info_div(info, template, cover):
         template.append("Artist..............: " + info["album"]["artiste"])
         template.append("Album...............: " + info["album"]["album"])
         template.append("Genre...............: " + info["album"]["genre"])
@@ -132,6 +136,9 @@ def album_info_div(info, template):
         template.append(f"Channels............: {info['album']['channels']}")
         template.append(f"Sampling rate.......: {info['album']['sampling']} Hz")
         template.append("Mode................: " + info["album"]["mode"])
+        if cover:
+            template.append("Cover................: Front")
+
         template.append("")
         return template
 
@@ -156,7 +163,7 @@ def last_info(template, p_time, total_size):
     template.append("")
     template.append("")
     template.append(f"Playing time........: {calculate_time(p_time)}")
-    template.append(f"Total size..........: {total_size//2**20} Mo")
+    template.append(f"Total size..........: {total_size//2**20} Mb")
 
 
 
@@ -165,7 +172,7 @@ def read_nfo():
         print(f.read())
 
 def nfo_file():
-    mp3s = get_mp3_in_directory()
+    mp3s, cover = get_mp3_in_directory()
     actual_album = None
     template = []
     nfo = None
@@ -179,7 +186,7 @@ def nfo_file():
             actual_album = info["album"]
             nfo = create_nfofile(info["album"]["album"])
             album_div(info["album"]["artiste"], info["album"]["album"], template)
-            album_info_div(info, template)
+            album_info_div(info, template, cover)
             track_div(template)
 
         track_info(info, template)
