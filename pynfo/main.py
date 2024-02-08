@@ -1,7 +1,7 @@
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3
-from os import walk
-
+from os import walk, path
+import time
 
 def get_mp3_in_directory():
     files = []
@@ -10,9 +10,31 @@ def get_mp3_in_directory():
             if file[-3:] == "mp3":
                 files.append(dirpath+"/"+file)
 
-    print(files)
-    return files
+    mp3s = sort_mp3(files)
+    return mp3s
+
+def sort_mp3(files: list):
+    s_list = []
+    n_list = []
+    for mp3 in files:
+        info = ID3(mp3)
+        n = int(info["TRCK"].text[0])
+        n_list.append(n)
+    max = 0
+    while n_list != []:
+        for n in n_list:
+            if n > max:
+                max = n
+
+        index = n_list.index(max)
+        s_list.insert(0, files[index])
+        n_list.pop(index)
+        files.pop(index)
+        max = 0
+    return s_list
     
+
+
 def get_nfo_in_directory():
     files = []
     for (dirpath, dirnames, filenames) in walk("."):
@@ -27,6 +49,8 @@ def get_info_for_one_mp3(filename):
     info = ID3(filename)
     # Numero de la pistes
     numero = info["TRCK"].text[0]
+    if int(numero) < 10:
+        numero = "0" + numero
     # Titre de la piste
     titre = info["TIT2"].text[0]
     # Nom de l'artiste ou du goupe
@@ -42,6 +66,8 @@ def get_info_for_one_mp3(filename):
     audio = MP3(filename)
     # Longugeur en secondes de la piste
     longueur = audio.info.length
+    seconde = longueur
+    longueur = calculate_time(longueur)
     # Le nombre de channels audio
     channels = audio.info.channels
     # Le débit (bitrate) en bits par seconde
@@ -60,11 +86,25 @@ def get_info_for_one_mp3(filename):
     if mode == 2: mode = "Dual channel"
     if mode == 3: mode = "Mono"
 
-    return {"album": {"artiste": artiste, "album": album, "genre": genre, "year": year, "ripper": ripper, "format": "mp3", "quality": bitrate, "channels": channels, "sampling": sampling, "mode": mode}, "track": {"numero": numero, "titre":titre, "longueur": longueur  }}
+    size = path.getsize(filename)
+
+    return {"album": {"artiste": artiste, "album": album, "genre": genre, "year": year, "ripper": ripper, "format": "mp3", "quality": bitrate, "channels": channels, "sampling": sampling, "mode": mode}, "track": {"numero": numero, "titre":titre, "longueur": longueur , "seconde": seconde, "size": size}}
         
+
+def calculate_time(temps):
+    seconde = int(temps%60)
+    minute = int(temps//60)
+    if seconde < 10:
+        seconde = f"0{seconde}"
+    if minute > 9:
+        return f"{minute}:{seconde}"
+    return f"0{minute}:{seconde}"
+
+
 def centre_text(text):
     espace = 70-len(text)
-    return " "*10 + text
+    espace = espace//2
+    return " "*espace + text
 
 def create_nfofile(title):
     try:
@@ -92,23 +132,32 @@ def album_info_div(info, template):
         template.append(f"Channels............: {info['album']['channels']}")
         template.append(f"Sampling rate.......: {info['album']['sampling']} Hz")
         template.append("Mode................: " + info["album"]["mode"])
+        template.append("")
         return template
 
 
 def track_div(template):
-    template.append(tirets)
+    template.append(tirets(template=template))
     template.append(centre_text("Tracklisting"))
-    template.append(tirets)
+    template.append(tirets(template))
     template.append("")
     return template
 
 def track_info(info, template):
-    espace = 70 - len(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}") - 7
-    template.append(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}{' '*espace}[{info['track']['longueur']}]")
+    espace = 70 - len(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}") - 10
+    template.append(f"  {info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}{' '*espace}[{info['track']['longueur']}]")
     return template
 
 def tirets(template):
     return "----------------------------------------------------------------------"
+
+
+def last_info(template, p_time, total_size):
+    template.append("")
+    template.append("")
+    template.append(f"Playing time........: {calculate_time(p_time)}")
+    template.append(f"Total size..........: {total_size//2**20} Mo")
+
 
 
 def read_nfo():
@@ -119,39 +168,28 @@ def nfo_file():
     mp3s = get_mp3_in_directory()
     actual_album = None
     template = []
-
+    nfo = None
+    play_time = 0
+    total_size = 0
     for mp3 in mp3s:
         info = get_info_for_one_mp3(mp3)
+        play_time += info["track"]["seconde"]
+        total_size += info["track"]["size"]
         if actual_album != info["album"]:
             actual_album = info["album"]
             nfo = create_nfofile(info["album"]["album"])
             album_div(info["album"]["artiste"], info["album"]["album"], template)
             album_info_div(info, template)
-        print(template)
-        
+            track_div(template)
+
         track_info(info, template)
-    print(template)
+    last_info(template, play_time, total_size)
 
+    with open(nfo, "w") as f:
+        for line in template:
+            f.write(line + "\n")
 
+s  = time.time()
 nfo_file()
-"""
-Notes : 
-- Prend tous les fichiers mp3 dans un directory
-- Retourne un .nfo avec autant d'album que l'on a.
-
-Infos Album :
-- Artist
-- Album
-- Genre
-- Year
-- Ripper
-- Format
-- Quality
-- Channels
-- Sampling Rate
-- Mode
-- Cover
-
-"""
-
+print(f"Terminé en {round(time.time() - s, 4)}s")
 
