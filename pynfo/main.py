@@ -78,7 +78,7 @@ def get_info_for_one_mp3(filename):
     bitrate = audio.info.bitrate
     bitrate = bitrate//1000
     # Le sampling rate (fréquence d'échantillonnage) en Hz
-    sampling = audio.info.sample_rate
+    sampling = audio.info.sample_rate / 1000
     # Le bitrate mode (on ne l'utilisera pas ici)
     bit_rate_type = str(audio.info.bitrate_mode)[-3:]
     # Le ripper (extracteur) utilisé
@@ -126,18 +126,21 @@ def album_div(artiste, album, template):
         return template
 
 def album_info_div(info, template, cover):
+        """
+        Récupère toutes les infos de l'album et les intègre dans la liste template
+        """
         template.append("Artist..............: " + info["album"]["artiste"])
         template.append("Album...............: " + info["album"]["album"])
         template.append("Genre...............: " + info["album"]["genre"])
         template.append(f"Year................: {info['album']['year']}")
         template.append("Ripper..............: " + info["album"]["ripper"])
-        template.append("Format..............: " + info["album"]["format"])
+        template.append("Format..............: " + "MPEG Audio Layer 3 (MP3)")
         template.append(f"Quality.............: {info['album']['quality']} kps")
         template.append(f"Channels............: {info['album']['channels']}")
-        template.append(f"Sampling rate.......: {info['album']['sampling']} Hz")
+        template.append(f"Sampling rate.......: {info['album']['sampling']} kHz")
         template.append("Mode................: " + info["album"]["mode"])
         if cover:
-            template.append("Cover................: Front")
+            template.append("Cover...............: Front")
 
         template.append("")
         return template
@@ -151,6 +154,9 @@ def track_div(template):
     return template
 
 def track_info(info, template):
+    """
+    Pour chaque track on met le numéro, l'artiste et le titre. Ainsi que la durée
+    """
     espace = 70 - len(f"{info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}") - 10
     template.append(f"  {info['track']['numero']}. {info['album']['artiste']} - {info['track']['titre']}{' '*espace}[{info['track']['longueur']}]")
     return template
