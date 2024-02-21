@@ -13,10 +13,8 @@ class Candidats:
         self.con.commit()
 
     def add_candidat(self, nom):
-        self.cursor.execute(
-            """INSERT INTO candidats VALUES(?,?)""", (nom, 0)
-        )
-        self.con.commit
+        self.cursor.execute("INSERT INTO candidats VALUES(?,?)", (nom, 0))
+        self.con.commit()
     
     def get_candidats(self):
         self.cursor.execute("SELECT * FROM candidats")
@@ -26,6 +24,19 @@ class Candidats:
         self.cursor.execute("SELECT nom FROM candidats")
         return self.cursor.fetchall()
     
+    def candidat_exist(self, nom):
+        self.cursor.execute("SELECT COUNT(*) FROM candidats WHERE nom = ?", (nom, ))
+        return self.cursor.fetchone()[0]
+    
     def voter(self, nom):
-        self.cursor.execute("UPDATE candidats SET votes = votes + 1 WHERE nom = ?", (nom))
-        self.con.commit
+        self.cursor.execute("UPDATE candidats SET votes = votes + 1 WHERE nom = ?", (nom, ))
+        self.con.commit()
+
+    def clear_table(self):
+        self.cursor.execute("DROP TABLE candidats")
+        self.con.commit()
+        self.__init__()
+
+if __name__ == "__main__":
+    bdd = Candidats()
+    bdd.clear_table()

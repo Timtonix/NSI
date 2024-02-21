@@ -9,8 +9,8 @@ class MachineVote:
         pass
     
     def ajouter_candidat(self, nom):
-        candidats = self.candidats.get_candidats_name()
-        if nom in candidats:
+        print(self.candidats.candidat_exist(nom=nom))
+        if self.candidats.candidat_exist(nom=nom):
             raise ValueError("Le candidat existe déjà")
         else:
             self.candidats.add_candidat(nom=nom)
@@ -25,6 +25,7 @@ class Ecran:
 
     def afficher_choix(self):
         candidats = self.machine.candidats.get_candidats_name()
+        print(candidats)
         for candidat in candidats:
             print(candidat)
     
@@ -35,3 +36,8 @@ class Ecran:
         nom = input("Nom : ").strip()
         self.machine.ajouter_candidat(nom=nom)
         print("Le candidat a été ajouté")
+
+if __name__ == "__main__":
+    ecran = Ecran()
+    ecran.ajouter_candidat()
+    ecran.afficher_choix()
