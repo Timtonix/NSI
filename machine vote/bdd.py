@@ -22,7 +22,12 @@ class Candidats:
     
     def get_candidats_name(self):
         self.cursor.execute("SELECT nom FROM candidats")
-        return self.cursor.fetchall()
+        sale = self.cursor.fetchall()
+        propre = []
+        for c in sale:
+            propre.append(c[0])
+        return propre
+        
     
     def candidat_exist(self, nom):
         self.cursor.execute("SELECT COUNT(*) FROM candidats WHERE nom = ?", (nom, ))
@@ -30,6 +35,7 @@ class Candidats:
     
     def voter(self, nom):
         self.cursor.execute("UPDATE candidats SET votes = votes + 1 WHERE nom = ?", (nom, ))
+        print("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKk")
         self.con.commit()
 
     def clear_table(self):
