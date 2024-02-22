@@ -26,6 +26,7 @@ class MachineVote:
 class Ecran:
     def __init__(self) -> None:
         self.machine = MachineVote()
+        self.main()
     
 
     def afficher_choix(self):
@@ -54,8 +55,7 @@ class Ecran:
     def handle_choice(self, choice):
         if choice == "m":
             self.ecran_admin()
-        
-        if choice in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        elif choice in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
             self.machine.voter(choice)
         else:
             self.ecran_vote()
@@ -67,7 +67,12 @@ class Ecran:
 
 
     def ecran_admin(self):
-        pass
+        print(""">Que voulez vous faire ?
+              |> 1. Ajouter candidat
+              |> 2. Voir les résultats
+              |> 3. Réinitialiser
+              |> 4. Mode vote
+              |> 5. Quitter""")
 
 
     def main(self):
@@ -76,8 +81,4 @@ class Ecran:
 
 
 if __name__ == "__main__":
-    import sys
-
     ecran = Ecran()
-    ecran.ecran_vote()
-    ecran.afficher_resultat()
