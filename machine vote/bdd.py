@@ -35,7 +35,6 @@ class Candidats:
     
     def voter(self, nom):
         self.cursor.execute("UPDATE candidats SET votes = votes + 1 WHERE nom = ?", (nom, ))
-        print("OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKk")
         self.con.commit()
 
     def clear_table(self):
