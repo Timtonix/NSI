@@ -67,17 +67,31 @@ class Ecran:
 
 
     def ecran_admin(self):
+        os.system("clear")
         print(""">Que voulez vous faire ?
               |> 1. Ajouter candidat
               |> 2. Voir les résultats
               |> 3. Réinitialiser
               |> 4. Mode vote
               |> 5. Quitter""")
+        self.admin_choice(input("Mon choix >").strip())
 
+    def admin_choice(self, choice):
+        if choice == "1":
+            self.ajouter_candidat()
+        elif choice == "2":
+            self.afficher_resultat()
+        elif choice == "3":
+            pass
+        elif choice == "4":
+            self.ecran_vote()
+        elif choice == "5":
+            exit()
+        else:
+            self.ecran_admin()
 
     def main(self):
         self.ecran_vote()
-
 
 
 if __name__ == "__main__":
